@@ -43,6 +43,12 @@ function processKeyStrokes() {
       advanceNode()
     } else {
       currentNode.classList.add('incorrect')
+      currentNode.appendChild(cursor)
+
+      currentNode = currentNode.nextSibling
+      currentNode.classList.add('current')
+
+      currentLetter = currentNode.textContent
     }
 
     if (e.keyCode === 32) return false
@@ -61,19 +67,23 @@ function advanceNode() {
   currentLetter = currentNode.textContent
 }
 
-// function watchBackspace() {
-//   document.onkeydown = (e) => {
-//     console.log(e.keyCode)
-//     if (e.keyCode === 8) {
-//       currentNode.classList.remove('current')
-//       currentNode.classList.remove('incorrect')
-//       currentNode = currentNode.previousSibling
-//       currentNode.previousSibling.appendChild(cursor)
-//       currentNode.classList.add('current')
-//       currentLetter = currentNode.textContent
-//     }
-//   }
-// }
+function watchBackspace() {
+  document.onkeydown = (e) => {
+    console.log(e.keyCode)
+    if (e.keyCode === 8) {
+      currentNode.classList.remove('current')
+      currentNode.classList.remove('incorrect')
+      currentNode.classList.remove('completed')
+
+      currentNode = currentNode.previousSibling
+      currentNode.previousSibling.appendChild(cursor)
+      currentNode.classList.remove('completed')
+      currentNode.classList.add('current')
+
+      currentLetter = currentNode.textContent
+    }
+  }
+}
 
 function normalized(letter) {
   if (letter === 'é' || letter === 'è' || letter === 'ê' || letter === 'ë') return 'e'
