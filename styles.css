@@ -1,7 +1,30 @@
 #main {
-  width: 66vw;
+  width: 85vw;
   height: 66vw;
-  /*border: 1px solid red;*/
+  font-family: 'Slabo 27px', serif;
+  margin-left: 7.5vw;
+}
+
+#foreign {
+  width: 40vw;
+  height: 66vw;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#translation {
+  width: 40vw;
+  height: 66vw;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#separator {
+  height: 66vw;
+  width: 1px;
+  border-left: 1px solid grey;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .letter {

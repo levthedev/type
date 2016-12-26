@@ -1,7 +1,7 @@
 let currentLetter
 let currentNode
 let cursor
-let main
+let foreign
 
 document.addEventListener('DOMContentLoaded', () => {
   createCursor()
@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function createCursor() {
-  main = document.getElementById('main')
+  foreign = document.getElementById('foreign')
   cursor = document.createElement('span')
   cursor.id = 'cursor'
-  main.appendChild(cursor)
+  foreign.appendChild(cursor)
 }
 
 function createTextNodes() {
@@ -29,7 +29,7 @@ function createTextNodes() {
       currentNode = span
     }
 
-    main.appendChild(span)
+    foreign.appendChild(span)
   })
 }
 
