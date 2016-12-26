@@ -1,0 +1,85 @@
+let currentLetter
+let currentNode
+let cursor
+let main
+
+document.addEventListener('DOMContentLoaded', () => {
+  createCursor()
+  createTextNodes()
+  processKeyStrokes()
+  watchBackspace()
+})
+
+function createCursor() {
+  main = document.getElementById('main')
+  cursor = document.createElement('span')
+  cursor.id = 'cursor'
+  main.appendChild(cursor)
+}
+
+function createTextNodes() {
+  text.split('').map((letter, i) => {
+    let span = document.createElement('span')
+    span.classList.add('letter')
+    span.innerHTML = letter
+
+    if (i === 0) {
+      span.classList.add('current')
+      currentLetter = letter
+      currentNode = span
+    }
+
+    main.appendChild(span)
+  })
+}
+
+function processKeyStrokes() {
+  document.onkeypress = (e) => {
+    e = e || window.event
+    let charCode = e.which || e.keyCode
+    let charCodeString = String.fromCharCode(charCode)
+
+    if (charCodeString === currentLetter || charCodeString === normalized(currentLetter)) {
+      advanceNode()
+    } else {
+      currentNode.classList.add('incorrect')
+    }
+
+    if (e.keyCode === 32) return false
+  }
+}
+
+function advanceNode() {
+  currentNode.classList.remove('current')
+  currentNode.classList.remove('incorrect')
+  currentNode.classList.add('completed')
+  currentNode.appendChild(cursor)
+
+  currentNode = currentNode.nextSibling
+  currentNode.classList.add('current')
+
+  currentLetter = currentNode.textContent
+}
+
+// function watchBackspace() {
+//   document.onkeydown = (e) => {
+//     console.log(e.keyCode)
+//     if (e.keyCode === 8) {
+//       currentNode.classList.remove('current')
+//       currentNode.classList.remove('incorrect')
+//       currentNode = currentNode.previousSibling
+//       currentNode.previousSibling.appendChild(cursor)
+//       currentNode.classList.add('current')
+//       currentLetter = currentNode.textContent
+//     }
+//   }
+// }
+
+function normalized(letter) {
+  if (letter === 'é' || letter === 'è' || letter === 'ê' || letter === 'ë') return 'e'
+  if (letter === 'ù' || letter === 'û' || letter === 'ü') return 'u'
+  if (letter === 'à' || letter === 'â') return 'a'
+  if (letter === 'î' || letter === 'ï') return 'i'
+  if (letter === 'ô') return 'o'
+  if (letter === 'ç') return 'c'
+}

@@ -1,0 +1,30 @@
+#main {
+  width: 66vw;
+  height: 66vw;
+  /*border: 1px solid red;*/
+}
+
+.letter {
+  color: grey;
+}
+
+.current {
+  color: #7a04f7;
+}
+
+#cursor {
+  border-left: 1px solid grey;
+  animation: blinker 1s cubic-bezier(0.75,0,0.25,1) infinite;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+
+.completed {
+  color: black;
+}
+
+.incorrect {
+  color: #c40108;
+}
