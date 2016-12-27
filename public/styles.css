@@ -1,8 +1,23 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
 #main {
-  width: 85vw;
+  width: 100vw;
   height: 66vw;
+  margin-top: 10vh;
   font-family: 'Slabo 27px', serif;
-  margin-left: 7.5vw;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #foreign {
@@ -25,6 +40,10 @@
   border-left: 1px solid grey;
   display: inline-block;
   vertical-align: top;
+}
+
+#spacer {
+  width: 5vw;
 }
 
 .letter {

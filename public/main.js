@@ -2,6 +2,7 @@ let currentLetter
 let currentNode
 let cursor
 let foreign
+let completedText = ''
 
 document.addEventListener('DOMContentLoaded', () => {
   createCursor()
@@ -41,6 +42,9 @@ function processKeyStrokes() {
 
     if (charCodeString === currentLetter || charCodeString === normalized(currentLetter)) {
       advanceNode()
+      if (currentNode.textContent === ' ') {
+        translate()
+      }
     } else {
       currentNode.classList.add('incorrect')
       currentNode.appendChild(cursor)
@@ -60,6 +64,7 @@ function advanceNode() {
   currentNode.classList.remove('incorrect')
   currentNode.classList.add('completed')
   currentNode.appendChild(cursor)
+  completedText += currentNode.textContent
 
   currentNode = currentNode.nextSibling
   currentNode.classList.add('current')
@@ -69,7 +74,6 @@ function advanceNode() {
 
 function watchBackspace() {
   document.onkeydown = (e) => {
-    console.log(e.keyCode)
     if (e.keyCode === 8) {
       currentNode.classList.remove('current')
       currentNode.classList.remove('incorrect')
@@ -83,6 +87,14 @@ function watchBackspace() {
       currentLetter = currentNode.textContent
     }
   }
+}
+
+function translate() {
+  $.get(`/translate/${completedText}`, function(data) {
+    translation = document.getElementById("translation")
+    console.log(data)
+    translation.textContent = data
+  });
 }
 
 function normalized(letter) {
