@@ -85,6 +85,7 @@ function watchBackspace() {
       currentNode.classList.add('current')
 
       currentLetter = currentNode.textContent
+      completedText = completedText.slice(0, -1)
     }
   }
 }
