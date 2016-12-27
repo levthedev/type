@@ -70,3 +70,7 @@ body {
 .incorrect {
   color: #c40108;
 }
+
+.incorrect-space {
+  background-color: #c40108;
+}

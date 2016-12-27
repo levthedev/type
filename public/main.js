@@ -47,6 +47,7 @@ function processKeyStrokes() {
       }
     } else {
       currentNode.classList.add('incorrect')
+      if (currentNode.textContent === ' ') currentNode.classList.add('incorrect-space')
       currentNode.appendChild(cursor)
 
       currentNode = currentNode.nextSibling
@@ -62,6 +63,8 @@ function processKeyStrokes() {
 function advanceNode() {
   currentNode.classList.remove('current')
   currentNode.classList.remove('incorrect')
+  currentNode.classList.remove('incorrect')
+  currentNode.classList.remove('incorrect-space')
   currentNode.classList.add('completed')
   currentNode.appendChild(cursor)
   completedText += currentNode.textContent
@@ -77,6 +80,7 @@ function watchBackspace() {
     if (e.keyCode === 8) {
       currentNode.classList.remove('current')
       currentNode.classList.remove('incorrect')
+      currentNode.classList.remove('incorrect-space')
       currentNode.classList.remove('completed')
 
       currentNode = currentNode.previousSibling
@@ -91,6 +95,7 @@ function watchBackspace() {
 }
 
 function translate() {
+  console.log(completedText)
   $.get(`/translate/${completedText}`, function(data) {
     translation = document.getElementById("translation")
     console.log(data)
