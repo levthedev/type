@@ -1,16 +1,7 @@
-html, body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-}
-
 #main {
   width: 100vw;
   height: 66vw;
   margin-top: 10vh;
-  font-family: 'Slabo 27px', serif;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -51,7 +42,7 @@ body {
 }
 
 .current {
-  color: #7a04f7;
+  color: #6b59ef;
 }
 
 #cursor {

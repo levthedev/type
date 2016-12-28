@@ -29,6 +29,7 @@ GEM
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    sass (3.4.23)
     signet (0.7.3)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -45,6 +46,7 @@ PLATFORMS
 
 DEPENDENCIES
   google-cloud-translate
+  sass
   sinatra
 
 BUNDLED WITH
