@@ -9,6 +9,10 @@ get '/translate/:text' do
   translation.text
 end
 
+get '/demo' do
+  erb :demo, :layout => :nav
+end
+
 get '/' do
-  File.read(File.join('public', 'index.html'))
+  erb :index, :layout => :nav
 end

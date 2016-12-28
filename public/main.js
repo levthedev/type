@@ -95,12 +95,10 @@ function watchBackspace() {
 }
 
 function translate() {
-  console.log(completedText)
   $.get(`/translate/${completedText}`, function(data) {
     translation = document.getElementById("translation")
-    console.log(data)
     translation.textContent = data
-  });
+  })
 }
 
 function normalized(letter) {
