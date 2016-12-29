@@ -2,7 +2,6 @@
 
 $color1: #FDFDFD;
 $color2: #6b59ef;
-$color3: grey;
 
 body {
   background-color: $color1;
@@ -35,7 +34,7 @@ nav {
     display: flex;
     justify-content: space-between;
     list-style-type: none;
-    width: 25%;
+    width: 30%;
 
     a {
       color: $color1;
