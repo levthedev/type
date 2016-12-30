@@ -6,10 +6,10 @@
     <title>Type</title>
     <link rel="stylesheet" href="/stylesheets/reset.css" type="text/css">
     <link rel="stylesheet" href="/stylesheets/nav.css" type="text/css">
-    <script src="/js/jquery.min.js" type="text/javascript"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <script type="text/javascript">
+    <script async src="/js/jquery.min.js" type="text/javascript"></script>
+    <script async src="https://apis.google.com/js/platform.js" async defer></script>
+    <script async type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script async type="text/javascript">
       Stripe.setPublishableKey('pk_test_wNSmUtnjPppeeG0wiWFGZIN4')
       var $form = $('#payment-form')
 
@@ -32,7 +32,7 @@
         })
       })
     </script>
-    <script>
+    <script async>
       !function(){function c(){var a=b.createElement("script");
       a.src='https://resend.io/widget.js',a.async=!0,a.onload=function(){__init('RAczJQTEJ4Y3ZoTmg2Ymc9PQ==')},
       b.getElementsByTagName("head")[0].appendChild(a)}var a=window,b=document;
@@ -56,9 +56,9 @@
 
     <div id='main'>
       <%= yield %>
-      
+
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
-      <a href="#" onclick="signOut();">Sign out</a>
+      <a href="#" onclick="signOut()">Sign out</a>
       <script>
         function signOut() {
           var auth2 = gapi.auth2.getAuthInstance()

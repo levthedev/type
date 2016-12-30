@@ -49,7 +49,6 @@ end
 post '/your-charge-code' do
   token = params[:token]
   customer = stripe_api_wrapper.create_customer(token)
-  puts customer
 
   erb :index, :layout => :nav
 end

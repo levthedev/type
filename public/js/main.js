@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
   createTextNodes()
   document.body.addEventListener('keypress', processKeyStrokes)
   document.body.addEventListener('keydown', watchBackspace)
-  document.querySelector('#price-link').href = 'http://localhost:9292/#line'
+  document.querySelector('#price-link').href = 'https://typelang.herokuapp.com/#line'
 })
 
 function createCursor() {
