@@ -16,3 +16,17 @@ end
 get '/' do
   erb :index, :layout => :nav
 end
+
+get '/charge/:amount' do
+  Stripe.api_key = ENV[:TEST_STRIPE_PRIVATE_KEY]
+  amount = params[:amount]
+  plan = Stripe::Plan.create(
+    name: "Custom Plan - #{amount}",
+    id: "#{amount}-monthly",
+    interval: "month",
+    currency: "usd",
+    amount: amount,
+  )
+
+  erb :index, :layout => :nav
+end
