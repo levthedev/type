@@ -67,7 +67,8 @@ get '/app' do
 end
 
 get '/oauth2callback' do
-  client_secrets = Google::APIClient::ClientSecrets.load
+  json_secrets = JSON.parse(ENV['GOOGLE_CLIENT_SECRETS'])
+  client_secrets = Google::APIClient::ClientSecrets.new(json_secrets)
   auth_client = client_secrets.to_authorization
   auth_client.update!(
     scope: 'profile',
