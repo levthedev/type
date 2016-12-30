@@ -1,21 +1,22 @@
-// @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
 
-$color1: darken(#F8F8F8, 2.5);
-$color2: #6b59ef;
+$background: darken(#F8F8F8, 2.5);
+$primary: #6b59ef;
 
 body {
-  background-color: $color1;
+  background-color: $background;
   font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
 }
 
 .navBar {
-  background-color: $color2;
+  background-color: $primary;
   position: static;
   min-width: 100%;
 }
 
 .logo {
-  background-color: $color1;
+  background-color: $background;
   border-radius: 50px;
   display: inline-block;
   height: 35px;
@@ -37,7 +38,7 @@ nav {
     width: 30%;
 
     a {
-      color: $color1;
+      color: $background;
       text-decoration: none;
       position: relative;
     }
@@ -77,7 +78,7 @@ nav {
 
   @media screen and (max-width: 768px) {
     ul {
-      background-color: $color1;
+      background-color: $background;
       display: block;
       height: 0;
       list-style-type: none;
@@ -89,8 +90,8 @@ nav {
     }
 
     li {
-      border-bottom: 2px solid $color2;
-      color: $color2;
+      border-bottom: 2px solid $primary;
+      color: $primary;
       display: block;
       font-size: 1.5em;
       padding: 2em 0;
@@ -103,7 +104,7 @@ nav {
     }
 
     .label-toggle {
-      background: linear-gradient(to bottom, $color1 0%, $color1 20%, transparent 20%, transparent 40%, $color1 40%, $color1 60%, transparent 60%, transparent 80%, $color1 80%, $color1 100%); //Gradient Hamburger
+      background: linear-gradient(to bottom, $background 0%, $background 20%, transparent 20%, transparent 40%, $background 40%, $background 60%, transparent 60%, transparent 80%, $background 80%, $background 100%); //Gradient Hamburger
       cursor: pointer;
       display: block;
       float: right;

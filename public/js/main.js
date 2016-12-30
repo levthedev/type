@@ -1,10 +1,10 @@
-let currentLetter
-let currentNode
-let cursor
-let foreign
-let completedText = ''
+var currentLetter
+var currentNode
+var cursor
+var foreign
+var completedText = ''
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   createCursor()
   createTextNodes()
   document.body.addEventListener('keypress', processKeyStrokes)
@@ -19,8 +19,8 @@ function createCursor() {
 }
 
 function createTextNodes() {
-  text.split('').map((letter, i) => {
-    let span = document.createElement('span')
+  text.split('').map(function(letter, i) {
+    var span = document.createElement('span')
     span.classList.add('letter')
     span.innerHTML = letter
 
@@ -36,8 +36,8 @@ function createTextNodes() {
 
 function processKeyStrokes(event) {
   event = event || window.event
-  let charCode = event.which || event.keyCode
-  let charCodeString = String.fromCharCode(charCode)
+  var charCode = event.which || event.keyCode
+  var charCodeString = String.fromCharCode(charCode)
 
   if (charCodeString === currentLetter || charCodeString === normalized(currentLetter)) {
     advanceNode()
@@ -54,8 +54,7 @@ function processKeyStrokes(event) {
 
     currentLetter = currentNode.textContent
   }
-
-  if (event.keyCode === 32) { event.preventDefault(); return false }
+  if (event.keyCode === 32 || event.which === 32) { event.preventDefault(); return false }
 }
 
 function advanceNode() {
@@ -79,18 +78,21 @@ function advanceNode() {
 
 function watchBackspace(event) {
   if (event.keyCode === 8) {
-    currentNode.classList.remove('current')
-    currentNode.classList.remove('incorrect')
-    currentNode.classList.remove('incorrect-space')
-    currentNode.classList.remove('completed')
+    event.preventDefault()
+    if (!$(currentNode.previousSibling).is(':first-child')) {
+      currentNode.classList.remove('current')
+      currentNode.classList.remove('incorrect')
+      currentNode.classList.remove('incorrect-space')
+      currentNode.classList.remove('completed')
 
-    currentNode = currentNode.previousSibling
-    currentNode.previousSibling.appendChild(cursor)
-    currentNode.classList.remove('completed')
-    currentNode.classList.add('current')
+      currentNode = currentNode.previousSibling
+      currentNode.previousSibling.appendChild(cursor)
+      currentNode.classList.remove('completed')
+      currentNode.classList.add('current')
 
-    currentLetter = currentNode.textContent
-    completedText = completedText.slice(0, -1)
+      currentLetter = currentNode.textContent
+      completedText = completedText.slice(0, -1)
+    }
   }
 }
 

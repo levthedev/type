@@ -1,37 +1,33 @@
+$background: darken(#F8F8F8, 2.5);
+$primary: #6b59ef;
+
 #index {
-  margin-top: 7.5vh;
-  color: lighten(#000, 25%)
+  margin-top: 5vh;
+  color: lighten(#000, 25%);
 }
 
 .header {
   text-align: center;
-  font-weight: 100;
 }
 
 #columns {
-  margin-top: 7.5vh;
+  margin-top: 5vh;
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
 }
 
-#gif {
-  width: 500px;
+#macbook {
+  width: 55vw;
   height: auto;
-  // border: 1px solid #6b59ef;
-  // border-radius: 10px;
-  margin-right: 1vw;
 }
 
 #checklist {
-  width: 40vw;
+  width: 33vw;
   height: 40vh;
-  // border: 1px solid #6b59ef;
-  // border-radius: 10px;
-  margin-left: 1vw;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   align-content: center;
 }
@@ -44,4 +40,28 @@
 
 #checklist li:last-of-type {
   margin-bottom: 0vh;
+}
+
+#price {
+  text-align: center;
+  width: 66vw;
+  margin-left: 16.67vw;
+  h1, h2 {
+    color: $primary;
+  }
+}
+
+#line {
+  margin: 5vh 0 5vh 0;
+  border: 1px solid $primary;
+  height: 0px;
+  width: 66vw;
+  margin-left: 16.67vw;
+}
+
+#average {
+  background-color: darken($background, 15);
+  border: 1px solid darken($background, 20);
+  padding: 5px;
+  border-radius: 5px;
 }
