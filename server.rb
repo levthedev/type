@@ -2,6 +2,7 @@ require 'google/cloud/translate'
 require 'google/api_client/client_secrets'
 require 'sinatra'
 require 'pry'
+require 'net/http'
 require './util/api_wrapper'
 
 enable :sessions
@@ -86,8 +87,10 @@ get '/oauth2callback' do
     auth_client.fetch_access_token!
     auth_client.client_secret = nil
     session[:credentials] = auth_client.to_json
+    uri = URI("https://www.googleapis.com/oauth2/v1/userinfo?access_token=#{session[:credentials]['access_token']}")
+    puts Net::HTTP.get(uri)
     puts '****************'
-    puts session[:credentials]
+    puts session[:credentials]['access_token']
     puts '****************'
     stripe_api_wrapper.check_for_subscription()
     redirect to('/')
