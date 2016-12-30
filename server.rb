@@ -71,7 +71,7 @@ get '/oauth2callback' do
   client_secrets = Google::APIClient::ClientSecrets.new(json_secrets)
   auth_client = client_secrets.to_authorization
   auth_client.update!(
-    scope: 'email',
+    scope: ['email', 'profile'],
     redirect_uri: 'https://typelang.herokuapp.com/oauth2callback'
   )
   if request['code'] == nil
