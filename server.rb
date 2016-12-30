@@ -75,12 +75,25 @@ get '/oauth2callback' do
   )
   if request['code'] == nil
     auth_uri = auth_client.authorization_uri.to_s
+    puts '****************'
+    puts 'request code was nil'
+    puts auth_client
+    puts auth_uri
+    puts '****************'
     redirect to(auth_uri)
   else
     auth_client.code = request['code']
     auth_client.fetch_access_token!
     auth_client.client_secret = nil
     session[:credentials] = auth_client.to_json
+    puts '****************'
+    puts session[:credentials]
+    puts '****************'
+    stripe_api_wrapper.check_for_subscription()
     redirect to('/')
   end
+end
+
+get '/creds' do
+  session[:credentials]
 end

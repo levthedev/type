@@ -33,4 +33,7 @@ class ApiWrapper
       plan: plan.id
     )
   end
+
+  def check_for_subscription()
+  end
 end
