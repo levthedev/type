@@ -5,3 +5,4 @@ gem 'google-api-client'
 gem 'sass'
 gem 'stripe'
 gem 'pry'
+gem 'heroku-deflater', :group => :production

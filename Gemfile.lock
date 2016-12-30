@@ -27,6 +27,8 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
+    heroku-deflater (0.5.3)
+      rack (>= 1.4.5)
     httpclient (2.8.3)
     hurley (0.2)
     jwt (1.5.1)
@@ -74,6 +76,7 @@ PLATFORMS
 DEPENDENCIES
   google-api-client
   google-cloud-translate
+  heroku-deflater
   pry
   sass
   sinatra
