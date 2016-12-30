@@ -74,29 +74,14 @@ get '/oauth2callback' do
     scope: 'email',
     redirect_uri: 'https://typelang.herokuapp.com/oauth2callback'
   )
-  puts '***'
-  puts session
-  puts '***'
   if request['code'] == nil
     auth_uri = auth_client.authorization_uri.to_s
-    puts '****************'
-    puts 'request code was nil'
-    puts auth_client
-    puts auth_uri
-    puts '****************'
     redirect to(auth_uri)
   else
     auth_client.code = request['code']
     auth_client.fetch_access_token!
     auth_client.client_secret = nil
     session[:credentials] = auth_client.to_json
-    uri = URI("https://www.googleapis.com/oauth2/v1/userinfo?access_token=#{session[:credentials]['access_token']}")
-    profile = Net::HTTP.get(uri)
-    puts '****************'
-    puts session[:credentials]['access_token']
-    puts '****************'
-    puts profile.id
-    puts '****************'
     stripe_api_wrapper.check_for_subscription()
     redirect to('/')
   end
@@ -107,7 +92,7 @@ get '/creds' do
 end
 
 get '/auth' do
-  uri = URI("https://www.googleapis.com/oauth2/v1/userinfo")
+  uri = URI("https://www.googleapis.com/oauth2/v1/userinfo?access_token=#{session[:credentials]['access_token']}")
   profile = Net::HTTP.get(uri)
   puts profile
 end
