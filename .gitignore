@@ -1,2 +1,4 @@
 .env
 .sass-cache
+client_secrets.json
+client_secret*

@@ -1,10 +1,15 @@
 require 'google/cloud/translate'
+require 'google/api_client/client_secrets'
 require 'sinatra'
 require 'pry'
 require './util/api_wrapper'
 
+enable :sessions
+set :session_secret, ENV['SESSION_SECRET']
+
 translate = Google::Cloud::Translate.new
-api_wrapper = ApiWrapper.new()
+
+stripe_api_wrapper = ApiWrapper.new()
 
 get '/translate/:text' do
   translation = translate.translate(params[:text], to: 'en')
@@ -23,9 +28,9 @@ end
 get '/subscription/:amount/:token' do
   amount = params[:amount]
   token = params[:token]
-  plan = api_wrapper.create_plan(amount)
-  customer = api_wrapper.create_customer(token)
-  api_wrapper.subscribe_customer_to_plan(customer, plan)
+  plan = stripe_api_wrapper.create_plan(amount)
+  customer = stripe_api_wrapper.create_customer(token)
+  stripe_api_wrapper.subscribe_customer_to_plan(customer, plan)
 
   erb :index, :layout => :nav
 end
@@ -35,16 +40,47 @@ end
 
 get '/token' do
   token = "cus_9q8X26BOlH34Be"
-  plan = api_wrapper.create_plan(25)
-  customer = api_wrapper.create_customer(token)
-  api_wrapper.subscribe_customer_to_plan(customer, plan)
+  plan = stripe_api_wrapper.create_plan(25)
+  customer = stripe_api_wrapper.create_customer(token)
+  stripe_api_wrapper.subscribe_customer_to_plan(customer, plan)
   erb :index, :layout => :nav
 end
 
 post '/your-charge-code' do
   token = params[:token]
-  customer = api_wrapper.create_customer(token)
+  customer = stripe_api_wrapper.create_customer(token)
   puts customer
 
   erb :index, :layout => :nav
+end
+
+get '/test-auth' do
+  auth_uri = auth_client.authorization_uri.to_s
+  redirect to(auth_uri)
+end
+
+get '/app' do
+  unless session.has_key?(:credentials)
+   redirect to('/oauth2callback')
+  end
+  erb :demo, :layout => :nav
+end
+
+get '/oauth2callback' do
+  client_secrets = Google::APIClient::ClientSecrets.load
+  auth_client = client_secrets.to_authorization
+  auth_client.update!(
+    scope: 'profile',
+    redirect_uri: 'https://typelang.herokuapp.com/oauth2callback'
+  )
+  if request['code'] == nil
+    auth_uri = auth_client.authorization_uri.to_s
+    redirect to(auth_uri)
+  else
+    auth_client.code = request['code']
+    auth_client.fetch_access_token!
+    auth_client.client_secret = nil
+    session[:credentials] = auth_client.to_json
+    redirect to('/')
+  end
 end

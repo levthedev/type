@@ -5,6 +5,15 @@ GEM
     coderay (1.1.1)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    google-api-client (0.9.20)
+      addressable (~> 2.3)
+      googleauth (~> 0.5)
+      httpclient (~> 2.7)
+      hurley (~> 0.1)
+      memoist (~> 0.11)
+      mime-types (>= 1.6)
+      representable (~> 2.3.0)
+      retriable (~> 2.0)
     google-cloud-core (0.21.1)
       googleauth (~> 0.5.1)
     google-cloud-translate (0.22.2)
@@ -18,6 +27,8 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
+    httpclient (2.8.3)
+    hurley (0.2)
     jwt (1.5.1)
     little-plugger (1.1.4)
     logging (2.1.0)
@@ -36,8 +47,11 @@ GEM
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    representable (2.3.0)
+      uber (~> 0.0.7)
     rest-client (1.6.9)
       mime-types (~> 1.16)
+    retriable (2.1.0)
     sass (3.4.23)
     signet (0.7.3)
       addressable (~> 2.3)
@@ -52,11 +66,13 @@ GEM
     stripe (1.57.1)
       rest-client (>= 1.4, < 4.0)
     tilt (2.0.5)
+    uber (0.0.15)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  google-api-client
   google-cloud-translate
   pry
   sass
