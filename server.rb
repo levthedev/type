@@ -105,3 +105,9 @@ end
 get '/creds' do
   session[:credentials]
 end
+
+get '/auth' do
+  uri = URI("https://www.googleapis.com/oauth2/v1/userinfo")
+  profile = Net::HTTP.get(uri)
+  puts profile
+end
