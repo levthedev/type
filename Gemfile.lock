@@ -27,6 +27,7 @@ GEM
       multi_json (~> 1.11)
       os (~> 0.9)
       signet (~> 0.7)
+    hashie (3.4.6)
     heroku-deflater (0.5.3)
       rack (>= 1.4.5)
     httpclient (2.8.3)
@@ -40,7 +41,25 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     multi_json (1.12.1)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
+    oauth2 (1.3.0)
+      faraday (>= 0.8, < 0.11)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 3)
+    omniauth (1.3.1)
+      hashie (>= 1.2, < 4)
+      rack (>= 1.0, < 3)
+    omniauth-google-oauth2 (0.4.0)
+      jwt (~> 1.5.0)
+      multi_json (~> 1.3)
+      omniauth (>= 1.1.1)
+      omniauth-oauth2 (>= 1.3.1)
+    omniauth-oauth2 (1.4.0)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
     os (0.9.6)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -77,6 +96,8 @@ DEPENDENCIES
   google-api-client
   google-cloud-translate
   heroku-deflater
+  omniauth
+  omniauth-google-oauth2
   pry
   sass
   sinatra

@@ -1,5 +1,7 @@
 require 'google/cloud/translate'
 require 'google/api_client/client_secrets'
+require 'omniauth'
+require 'omniauth-google-oauth2'
 require 'sinatra'
 require 'pry'
 require 'net/http'
@@ -7,6 +9,11 @@ require './util/api_wrapper'
 
 enable :sessions
 set :session_secret, ENV['SESSION_SECRET']
+
+use OmniAuth::Builder do
+  # For additional provider examples please look at 'omni_auth.rb'
+  provider :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {access_type: "offline", prompt: "consent", scope: 'userinfo.email,calendar'}
+end
 
 translate = Google::Cloud::Translate.new
 
@@ -95,4 +102,14 @@ get '/auth' do
   uri = URI("https://www.googleapis.com/oauth2/v1/userinfo?access_token=#{session[:credentials]['access_token']}")
   profile = Net::HTTP.get(uri)
   puts profile
+end
+
+get '/auth/failure' do
+  content_type 'text/plain'
+  request.env['omniauth.auth'].to_hash.inspect rescue "No Data"
+end
+
+get '/auth/:provider/callback' do
+  content_type 'text/plain'
+  request.env['omniauth.auth'].to_hash.inspect rescue "No Data"
 end
