@@ -32,9 +32,9 @@ $primary: #6b59ef;
   align-content: center;
 }
 
-#checklist li {
+#checklist li, #checklist a {
   font-size: 1.5em;
-  margin-bottom: 4vh;
+  margin-bottom: 5vh;
   list-style: none;
 }
 
@@ -64,4 +64,21 @@ $primary: #6b59ef;
   border: 1px solid darken($background, 20);
   padding: 5px;
   border-radius: 5px;
+}
+
+#login {
+  text-decoration: none;
+}
+
+#login img {
+  margin-top: 5vh;
+  height: 2.5em;
+  &:hover {
+    filter: brightness(110%);
+  }
+}
+
+#login:hover, #login:focus, #login:active, #login:visited {
+    color: darken($primary, 20);
+    text-decoration: none;
 }
