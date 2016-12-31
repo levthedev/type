@@ -5,7 +5,7 @@ $('#price-link').click(function() {
 })
 
 $('.faq-answer').toggle()
-$('.faq-button').click(function(event) {
+$('.faq-button').click(function() {
   $(this.nextSibling).next().fadeToggle(250)
 })
 

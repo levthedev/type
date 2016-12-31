@@ -96,27 +96,27 @@ $primary: #6b59ef;
   border-radius: 7px;
   padding: 5px;
   font-weight: 600;
-  width: 40vw;
-  margin-left: 12.5vw;
+  width: 30vw;
+  margin-left: 18vw;
+  margin-bottom: 5vh;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-  -webkit-box-shadow: 5px 5px 0px 0px black;
-  -moz-box-shadow:    5px 5px 0px 0px black;
-  box-shadow:         5px 5px 0px 0px black;
+  -webkit-box-shadow: 5px 5px 0vw 0vw black;
+  -moz-box-shadow:    5px 5px 0vw 0vw black;
+  box-shadow:         5px 5px 0vw 0vw black;
   &:hover, &:active {
     cursor: pointer;
   }
   &:active {
-    margin-top: 2px;
-    margin-left: 13vw;
-    -webkit-box-shadow:2px 2px 0px 0px black;
-    -moz-box-shadow:   2px 2px 0px 0px black;
-    box-shadow:        2px 2px 0px 0px black;
+    margin-top: 5px;
+    margin-left: 18.5vw;
+    -webkit-box-shadow:0px 0px 0px 0px black;
+    -moz-box-shadow:   0px 0px 0px 0px black;
+    box-shadow:        0px 0px 0px 0px black;
   }
-  margin-bottom: 5vh;
 }
 
 .faq-answer {
