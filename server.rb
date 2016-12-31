@@ -12,7 +12,7 @@ set :session_secret, ENV['SESSION_SECRET']
 
 use OmniAuth::Builder do
   # For additional provider examples please look at 'omni_auth.rb'
-  provider :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET'], {access_type: "offline", prompt: "consent", scope: 'userinfo.email,calendar'}
+  provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {access_type: "offline", prompt: "consent", scope: 'userinfo.email,calendar'}
 end
 
 translate = Google::Cloud::Translate.new
