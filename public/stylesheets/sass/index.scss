@@ -8,6 +8,8 @@ $primary: #6b59ef;
 
 .header {
   text-align: center;
+  font-size: 1.5em;
+  font-weight: 400;
 }
 
 #columns {
@@ -59,11 +61,15 @@ $primary: #6b59ef;
   margin-left: 16.67vw;
 }
 
-#average {
+#average, .minmax {
   background-color: darken($background, 15);
   border: 1px solid darken($background, 20);
-  padding: 5px;
+  padding: 3px;
   border-radius: 5px;
+}
+
+.stats {
+  margin-bottom: 15px;
 }
 
 #login {
@@ -81,4 +87,43 @@ $primary: #6b59ef;
 #login:hover, #login:focus, #login:active, #login:visited {
     color: darken($primary, 20);
     text-decoration: none;
+}
+
+#price .faq-button {
+  background-color: $primary;
+  color: black;
+  border: 3px solid black;
+  border-radius: 7px;
+  padding: 5px;
+  font-weight: 600;
+  width: 40vw;
+  margin-left: 12.5vw;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-box-shadow: 5px 5px 0px 0px black;
+  -moz-box-shadow:    5px 5px 0px 0px black;
+  box-shadow:         5px 5px 0px 0px black;
+  &:hover, &:active {
+    cursor: pointer;
+  }
+  &:active {
+    margin-top: 2px;
+    margin-left: 13vw;
+    -webkit-box-shadow:2px 2px 0px 0px black;
+    -moz-box-shadow:   2px 2px 0px 0px black;
+    box-shadow:        2px 2px 0px 0px black;
+  }
+  margin-bottom: 5vh;
+}
+
+.faq-answer {
+  width: 40vw;
+  margin-left: 15vw;
+}
+
+li {
+  list-style: none;
 }

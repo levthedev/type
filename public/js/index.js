@@ -1,8 +1,12 @@
-$("#price-link").click(function() {
-  //TODO if not on home page, navigate there
+$('#price-link').click(function() {
   $('html, body').animate({
-    scrollTop: $("#price").offset().top - 100
+    scrollTop: $('#price').offset().top - 100
   }, 400)
+})
+
+$('.faq-answer').toggle()
+$('.faq-button').click(function(event) {
+  $(this.nextSibling).next().fadeToggle(250)
 })
 
 document.querySelector('#average').textContent = '$2.39'

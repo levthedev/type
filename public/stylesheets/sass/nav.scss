@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Anton');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
 
 $background: darken(#F8F8F8, 2.5);
@@ -19,9 +20,23 @@ body {
   background-color: $background;
   border-radius: 50px;
   display: inline-block;
-  height: 35px;
-  margin: 1em 0;
-  width: 35px;
+  height: 50px;
+  margin: .5em 0;
+  width: 50px;
+  font-size: 24px;
+  letter-spacing: 1px;
+  line-height: 50px;
+  text-align: center;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  border: none;
+  font-family: 'Anton', Helvetica, sans-serif;
+  color: $primary;
+  text-transform: uppercase;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  text-shadow: 1px 1px 0 #FF686C
 }
 
 .wrapper {
@@ -115,4 +130,20 @@ nav {
 
     .wrapper {display: block;}
   }
+}
+
+.retro {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  margin: 0 auto;
+  border: none;
+  font: normal 40px/normal "Anton", Helvetica, sans-serif;
+  color: $primary;
+  text-align: center;
+  text-transform: uppercase;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  letter-spacing: 5px;
+  text-shadow: 2px 2px 0 #FF686C
 }
