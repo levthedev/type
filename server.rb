@@ -9,7 +9,7 @@ enable :sessions
 set :session_secret, ENV['SESSION_SECRET']
 
 use OmniAuth::Builder do
-  provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {access_type: "offline", prompt: "consent", scope: 'userinfo.email'}
+  provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {access_type: 'offline', prompt: 'consent', scope: 'userinfo.email'}
 end
 
 translate = Google::Cloud::Translate.new
@@ -44,7 +44,7 @@ end
 # Then, have them actually checkout with Stripe form, which subscribes them to their plan
 
 get '/token' do
-  token = "cus_9q8X26BOlH34Be"
+  token = 'cus_9q8X26BOlH34Be'
   plan = stripe_api_wrapper.create_plan(25)
   customer = stripe_api_wrapper.create_customer(token)
   stripe_api_wrapper.subscribe_customer_to_plan(customer, plan)
@@ -60,14 +60,16 @@ end
 
 get '/auth/failure' do
   content_type 'text/plain'
-  request.env['omniauth.auth'].to_hash.inspect rescue "No Data"
+  request.env['omniauth.auth'].to_hash.inspect rescue 'No Data'
 end
 
 get '/auth/:provider/callback' do
   auth_hash = request.env['omniauth.auth'].to_hash
-  puts auth_hash.inspect rescue "No Data"
-  session[:auth_hash] = auth_hash
-  session[:email] = auth_hash.email
+  puts '********************'
+  puts auth_hash.inspect rescue 'No Data'
+  puts '********************'
+  # session[:auth_hash] = auth_hash
+  session[:email] = auth_hash['email']
 
   erb :demo, :layout => :nav
 end
