@@ -64,6 +64,10 @@ get '/auth/failure' do
 end
 
 get '/auth/:provider/callback' do
-  content_type 'text/plain'
-  request.env['omniauth.auth'].to_hash.inspect rescue "No Data"
+  auth_hash = request.env['omniauth.auth'].to_hash
+  puts auth_hash.inspect rescue "No Data"
+  session[:auth_hash] = auth_hash
+  session[:email] = auth_hash.email
+
+  erb :demo, :layout => :nav
 end
