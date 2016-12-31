@@ -71,5 +71,5 @@ get '/auth/:provider/callback' do
   # session[:auth_hash] = auth_hash
   session[:email] = auth_hash['email']
 
-  erb :demo, :layout => :nav
+  redirect to('/demo')
 end
