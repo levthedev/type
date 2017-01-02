@@ -1,9 +1,13 @@
-require 'google/cloud/translate'
+require 'sinatra'
+require 'sinatra/sequel'
 require 'omniauth'
 require 'omniauth-google-oauth2'
-require 'sinatra'
-require 'pry'
-require './util/api_wrapper'
+require 'google/cloud/translate'
+require './util/stripe_wrapper'
+
+configure do
+	DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://database.db')
+end
 
 enable :sessions
 set :session_secret, ENV['SESSION_SECRET']
@@ -12,9 +16,8 @@ use OmniAuth::Builder do
   provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {access_type: 'offline', prompt: 'consent', scope: 'userinfo.email'}
 end
 
+stripe_api_wrapper = StripeWrapper.new()
 translate = Google::Cloud::Translate.new
-
-stripe_api_wrapper = ApiWrapper.new()
 
 get '/translate/:text' do
   translation = translate.translate(params[:text], to: 'en')
@@ -65,11 +68,11 @@ end
 
 get '/auth/:provider/callback' do
   auth_hash = request.env['omniauth.auth'].to_hash
-  puts '********************'
   puts auth_hash.inspect rescue 'No Data'
-  puts '********************'
-  # session[:auth_hash] = auth_hash
   session[:email] = auth_hash['email']
+
+  # check if user with email exists, if so, redirect to dashboard.
+  # if not, create user with info and redirect to subscription setup.
 
   redirect to('/demo')
 end

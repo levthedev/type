@@ -1,7 +1,7 @@
 require 'stripe'
 require 'securerandom'
 
-class ApiWrapper
+class StripeWrapper
   def initialize()
     Stripe.api_key = ENV['TEST_STRIPE_PRIVATE_KEY']
   end
