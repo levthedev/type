@@ -1,9 +1,10 @@
 $background: darken(#F8F8F8, 2.5);
 $primary: #6b59ef;
+$grey: lighten(#000, 25%);
 
 #index {
   margin-top: 5vh;
-  color: lighten(#000, 25%);
+  color: $grey;
 }
 
 .header {
@@ -48,7 +49,7 @@ $primary: #6b59ef;
   text-align: center;
   width: 66vw;
   margin-left: 16.67vw;
-  h1, h2 {
+  h2 {
     color: $primary;
   }
 }
@@ -126,4 +127,9 @@ $primary: #6b59ef;
 
 li {
   list-style: none;
+}
+
+#about {
+  color: $grey;
+  font-weight: 400;
 }
