@@ -1,12 +1,18 @@
 require 'sinatra'
 require 'sinatra/sequel'
+require 'better_errors'
 require 'omniauth'
 require 'omniauth-google-oauth2'
 require 'google/cloud/translate'
 require './util/stripe_wrapper'
 
+configure :development do
+  use BetterErrors::Middleware
+  BetterErrors.application_root = __dir__
+end
+
 configure do
-	DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://database.db')
+	DB = Sequel.connect(ENV['DATABASE_URL'])
 end
 
 enable :sessions
@@ -17,20 +23,18 @@ use OmniAuth::Builder do
 end
 
 stripe_api_wrapper = StripeWrapper.new()
-translate = Google::Cloud::Translate.new
+# translate = Google::Cloud::Translate.new
 
-get '/translate/:text' do
-  translation = translate.translate(params[:text], to: 'en')
-  puts translation.text
-  translation.text
+get '/' do
+  erb :index, :layout => :nav
 end
 
 get '/demo' do
   erb :demo, :layout => :nav
 end
 
-get '/' do
-  erb :index, :layout => :nav
+get '/signup' do
+  erb :signup, :layout => :nav
 end
 
 get '/subscription/:amount/:token' do
@@ -43,22 +47,13 @@ get '/subscription/:amount/:token' do
   erb :index, :layout => :nav
 end
 
-# TODO - first create plan and associate with current user based on slider or form input
-# Then, have them actually checkout with Stripe form, which subscribes them to their plan
-
-get '/token' do
-  token = 'cus_9q8X26BOlH34Be'
-  plan = stripe_api_wrapper.create_plan(25)
+post '/charge' do
+  token = params['stripeToken']
   customer = stripe_api_wrapper.create_customer(token)
-  stripe_api_wrapper.subscribe_customer_to_plan(customer, plan)
-  erb :index, :layout => :nav
-end
-
-post '/your-charge-code' do
-  token = params[:token]
-  customer = stripe_api_wrapper.create_customer(token)
-
-  erb :index, :layout => :nav
+  plan = stripe_api_wrapper.create_plan(params[:amount] || 69)
+  stripe_api_wrapper.subscribe_customer_to_plan(customer, plan, session)
+  redirect to('/demo')
+  erb :demo, :layout => :nav
 end
 
 get '/auth/failure' do
@@ -68,11 +63,32 @@ end
 
 get '/auth/:provider/callback' do
   auth_hash = request.env['omniauth.auth'].to_hash
-  puts auth_hash.inspect rescue 'No Data'
-  session[:email] = auth_hash['email']
+  email = auth_hash['info']['email']
+  first_name = auth_hash['info']['first_name']
 
-  # check if user with email exists, if so, redirect to dashboard.
-  # if not, create user with info and redirect to subscription setup.
+  users = DB.from(:users)
+  user = users.where(email: email).limit(1).first
 
-  redirect to('/demo')
+  puts user
+
+  if user && user[:subscribed]
+    puts '1'
+    session[:id] = user[:id]
+    redirect to('/demo')
+  elsif user
+    puts '2'
+    session[:id] = user[:id]
+    redirect to('/signup')
+  else
+    puts '3'
+    user = users.insert(email: email, first_name: first_name, subscribed: false)
+    session[:id] = user[:id]
+    redirect to('/signup')
+  end
+end
+
+get '/translate/:text' do
+  # translation = translate.translate(params[:text], to: 'en')
+  # puts translation.text
+  # translation.text
 end
