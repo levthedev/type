@@ -72,21 +72,14 @@ get '/auth/:provider/callback' do
   puts user
 
   if user && user[:subscribed]
-    puts '1'
     session[:id] = user[:id]
     redirect to('/demo')
   elsif user
-    puts '2'
     session[:id] = user[:id]
     redirect to('/signup')
   else
-    puts '3'
-    user = users.insert(email: email, first_name: first_name, subscribed: false)
-    puts '********************'
-    puts user
-    puts user.class
-    puts '********************'
-    session[:id] = user[:id]
+    user_id = users.insert(email: email, first_name: first_name, subscribed: false)
+    session[:id] = user_id
     redirect to('/signup')
   end
 end
