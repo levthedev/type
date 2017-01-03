@@ -30,19 +30,20 @@ $grey: lighten(#000, 25%);
   width: 33vw;
   height: 40vh;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  align-content: center;
+  align-content: space-around;
 }
 
 #checklist li, #checklist a {
   font-size: 1.5em;
-  margin-bottom: 5vh;
+  padding-bottom: 5vh;
   list-style: none;
+  display: flex;
+  align-items: center;
 }
 
-#checklist li:last-of-type {
-  margin-bottom: 0vh;
+#checklist li img {
+  height: 24px;
 }
 
 #price {
@@ -75,10 +76,10 @@ $grey: lighten(#000, 25%);
 
 #login {
   text-decoration: none;
+
 }
 
 #login img {
-  margin-top: 5vh;
   height: 2.5em;
   &:hover {
     filter: brightness(110%);
@@ -136,8 +137,4 @@ li {
 
 .retro {
   text-align: center;
-}
-
-.icon {
-  height: 20px;
 }
