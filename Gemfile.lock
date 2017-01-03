@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
+    bacon (1.2.0)
     coderay (1.1.1)
     domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
@@ -97,6 +98,7 @@ GEM
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
     sinatra-sequel (0.9.0)
+      bacon
       sequel (>= 3.2.0)
       sinatra (>= 0.9.4)
     slop (3.6.0)
@@ -125,6 +127,9 @@ DEPENDENCIES
   sinatra-sequel
   sqlite3
   stripe
+
+RUBY VERSION
+   ruby 2.4.0p0
 
 BUNDLED WITH
    1.13.7
