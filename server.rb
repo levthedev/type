@@ -23,7 +23,6 @@ use OmniAuth::Builder do
 end
 
 stripe_api_wrapper = StripeWrapper.new()
-# translate = Google::Cloud::Translate.new
 
 get '/' do
   erb :index, :layout => :nav
@@ -58,7 +57,7 @@ end
 
 get '/auth/failure' do
   content_type 'text/plain'
-  request.env['omniauth.auth'].to_hash.inspect rescue 'No Data'
+  request.env['omniauth.auth'].to_hash.inspect rescue 'No Data - It is possible your organization does not allow Google OAuth 2.0 access. Please contact us through the chat form on the website for more help.'
 end
 
 get '/auth/:provider/callback' do
@@ -68,8 +67,6 @@ get '/auth/:provider/callback' do
 
   users = DB.from(:users)
   user = users.where(email: email).limit(1).first
-
-  puts user
 
   if user && user[:subscribed]
     session[:id] = user[:id]
@@ -85,6 +82,7 @@ get '/auth/:provider/callback' do
 end
 
 get '/translate/:text' do
+  # translate = Google::Cloud::Translate.new
   # translation = translate.translate(params[:text], to: 'en')
   # puts translation.text
   # translation.text
