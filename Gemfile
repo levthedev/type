@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 gem 'sinatra'
+gem 'sinatra-sequel'
 gem 'google-cloud-translate'
 gem 'google-api-client'
 gem 'omniauth'
