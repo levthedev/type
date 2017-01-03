@@ -9,6 +9,7 @@ gem 'omniauth-google-oauth2'
 gem 'sass'
 gem 'stripe'
 gem 'pry'
+gem 'puma'
 gem 'heroku-deflater', :group => :production
 gem 'sqlite3', :group => :development
 gem 'shotgun', :group => :development

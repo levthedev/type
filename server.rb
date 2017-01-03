@@ -1,12 +1,12 @@
 require 'sinatra'
 require 'sinatra/sequel'
-require 'better_errors'
 require 'omniauth'
 require 'omniauth-google-oauth2'
 require 'google/cloud/translate'
 require './util/stripe_wrapper'
 
 configure :development do
+  require 'better_errors'
   use BetterErrors::Middleware
   BetterErrors.application_root = __dir__
 end
