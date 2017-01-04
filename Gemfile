@@ -13,4 +13,5 @@ gem 'puma'
 gem 'heroku-deflater', :group => :production
 gem 'sqlite3', :group => :development
 gem 'shotgun', :group => :development
+gem 'better_errors', :group => :development
 gem 'pg', :group => :production
