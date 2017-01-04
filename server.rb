@@ -4,10 +4,13 @@ require 'omniauth'
 require 'omniauth-google-oauth2'
 require './util/stripe_wrapper'
 
-use Rack::Deflater
-
 configure :development do
   require 'better_errors'
+  require 'rack-mini-profiler'
+  require 'memory_profiler'
+  require 'flamegraph'
+
+  use Rack::MiniProfiler
   use BetterErrors::Middleware
   BetterErrors.application_root = __dir__
 end
@@ -18,6 +21,8 @@ end
 
 enable :sessions
 set :session_secret, ENV['SESSION_SECRET']
+
+use Rack::Deflater
 
 use OmniAuth::Builder do
   provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {access_type: 'offline', prompt: 'consent', scope: 'userinfo.email'}
