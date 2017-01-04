@@ -2,7 +2,6 @@ require 'sinatra'
 require 'sinatra/sequel'
 require 'omniauth'
 require 'omniauth-google-oauth2'
-require 'google/cloud/translate'
 require './util/stripe_wrapper'
 
 configure :development do
@@ -82,6 +81,7 @@ get '/auth/:provider/callback' do
 end
 
 get '/translate/:text' do
+  # require 'google/cloud/translate'
   # translate = Google::Cloud::Translate.new
   # translation = translate.translate(params[:text], to: 'en')
   # puts translation.text
