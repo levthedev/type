@@ -6,7 +6,7 @@ $('#price-link').click(function() {
 
 $('.faq-answer').toggle()
 $('.faq-button').click(function() {
-  $(this.nextSibling).next().fadeToggle(250)
+  $(this.nextSibling).next().toggle()
 })
 
 document.querySelector('#average').textContent = '$2.39'
