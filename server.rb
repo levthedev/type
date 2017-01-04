@@ -4,6 +4,8 @@ require 'omniauth'
 require 'omniauth-google-oauth2'
 require './util/stripe_wrapper'
 
+use Rack::Deflater
+
 configure :development do
   require 'better_errors'
   use BetterErrors::Middleware
