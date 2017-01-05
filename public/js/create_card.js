@@ -1,34 +1,31 @@
-alert('hi')
 var card = new Card({
-    form: '#payment-form', // *required*
-    container: '.card-wrapper', // *required*
+    form: '#payment-form',
+    container: '.card-wrapper',
 
     formSelectors: {
-        numberInput: 'input#number', // optional — default input[name="number"]
-        expiryInput: '#exp_month ,#exp_year', // optional — default input[name="expiry"]
-        cvcInput: 'input#cvc', // optional — default input[name="cvc"]
-        // nameInput: 'input#name' // optional - defaults input[name="name"]
+        numberInput: 'input#number',
+        expiryInput: '#exp_month ,#exp_year',
+        cvcInput: 'input#cvc',
     },
 
-    width: 200, // optional — default 350px
-    formatting: true, // optional - default true
+    width: 200,
+    formatting: true,
 
     // Strings for translation - optional
     messages: {
-        validDate: 'valid\ndate', // optional - default 'valid\nthru'
-        monthYear: 'mm/yyyy', // optional - default 'month/year'
+        validDate: 'valid\ndate',
+        monthYear: 'mm/yyyy',
     },
 
     placeholders: {
         number: '•••• •••• •••• ••••',
-        // name: 'Full Name',
         expiry: '••/••',
         cvc: '•••'
     },
 
     masks: {
-        cardNumber: '•' // optional - mask card number
+        cardNumber: '•'
     },
 
-    debug: false // optional - default false
-});
+    debug: false
+})
