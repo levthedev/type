@@ -9,15 +9,16 @@
   Drag the slider below to choose a price, or enter it manually in the input next to the slider.
   <br>
   <br>
-  <form action="/charge" method="POST" onsubmit="function() { return false }" autocomplete="off">
+  <form class="stripe-form" action="/charge" method="POST" onsubmit="function() { return false }" autocomplete="off">
     <div id="error_explanation">
     </div>
-    <div class="range-slider" id="range-slider">
-      <span></span>
+    <div class="amount-wrapper">
+      <div class="range-slider" id="range-slider">
+        <span></span>
+      </div>
+      <input id="amount" name="amount" type="text" placeholder="$1.95" />
     </div>
-    <input id="amount" name="amount" type="text" placeholder="$1.95" />
     <input type="hidden" name="stripeToken" id="stripeToken"></input>
-    <br>
     <br>
     <button class="submit" id='donateButton' style="outline: none;">Subscribe for $1.95/month</button>
   </form>

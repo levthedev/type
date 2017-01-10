@@ -7,7 +7,19 @@ $primary: #6b59ef;
   margin-top: 5vh;
 }
 
+.stripe-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.amount-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .submit {
+  width: 250px;
   font-size: 1em;
   border-radius: 7px;
   color: $background;
@@ -37,22 +49,16 @@ $primary: #6b59ef;
 }
 
 .range-slider {
-  float: left;
   width: 300px;
   height: 20px;
-  margin: 0 auto 1em;
-  margin-top: 2px;
-  margin-left: 10vw;
   position: relative;
   cursor: pointer;
-  display: inline-block;
 }
 
 .range-slider:before {
   content: "";
   display: block;
   position: absolute;
-  top: 4px;
   width: 100%;
   height: 20px;
   background-color: darken($background, 15);
@@ -64,18 +70,19 @@ $primary: #6b59ef;
   border: 2px solid black;
   border-radius: 25px;
   position: relative;
+  bottom: 4px;
   z-index: 2;
   background-color: $primary;
   cursor: inherit;
 }
 
 #amount {
-  float: left;
   padding: 7px;
   border: solid 3px #c9c9c9;
   transition: border 0.3s;
   width: 30px;
-  // margin-left: 10vw;
+  height: 15px;
+  margin-left: 10px;
 }
 
 #amount:focus, #amount.focus {
@@ -88,8 +95,4 @@ $primary: #6b59ef;
   border: 1px solid darken($background, 20);
   padding: 3px;
   border-radius: 5px;
-}
-
-* {
-  border: 1px solid red !important;
 }
