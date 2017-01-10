@@ -10,7 +10,7 @@ class StripeWrapper
     Stripe::Plan.create(
       name: "Custom Test Plan - #{amount}",
       id: "#{amount}-daily-#{SecureRandom.hex}",
-      interval: 'day',
+      interval: 'month',
       currency: 'usd',
       amount: amount,
     )
