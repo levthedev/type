@@ -8,6 +8,8 @@ gem 'sass'
 gem 'stripe'
 gem 'puma'
 
+gem 'google-cloud-translate'
+
 group :development do
   gem 'rack-mini-profiler'
   gem 'flamegraph'
