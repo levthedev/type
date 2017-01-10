@@ -24,6 +24,19 @@ $grey: lighten(#000, 25%);
 #macbook {
   width: 55vw;
   height: auto;
+  position: relative;
+}
+
+#gif {
+  position: absolute;
+  width: 25vw;
+  top: 3vw;
+  left: 6vw;
+  zoom: 150%;
+}
+
+#images {
+  position: relative;
 }
 
 #checklist {
