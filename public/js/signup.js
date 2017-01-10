@@ -1,5 +1,14 @@
 var sliderAmount = 1.95
-var donateButton = $('#donateButton')
+var subscribeButton = $('#subscribeButton')
+var amount = document.getElementById('amount')
+amount.oninput = updateSubscribeButton
+
+function updateSubscribeButton(e) {
+  var inputAmount = parseFloat(e.target.value)
+  if (inputAmount) {
+    subscribeButton.html(`Subscribe for $${inputAmount.toFixed(2)}/month`)
+  }
+}
 
 var handler = StripeCheckout.configure({
   key: 'pk_test_wNSmUtnjPppeeG0wiWFGZIN4',
@@ -12,7 +21,7 @@ var handler = StripeCheckout.configure({
   }
 })
 
-$('#donateButton').on('click', function(e) {
+$('#subscribeButton').on('click', function(e) {
   e.preventDefault()
   $('#error_explanation').html('')
   var amount = $('input#amount').val() || sliderAmount.toString()
@@ -66,7 +75,7 @@ function rangeSlider(id, onDrag) {
     if (down && e.pageX >= rangeLeft && e.pageX <= (rangeLeft + rangeWidth)) {
       dragger.style.left = e.pageX - rangeLeft - draggerWidth + 'px'
       sliderAmount = Math.round(((e.pageX - rangeLeft) / rangeWidth) * 10 + 1)
-      donateButton.html(`Subscribe for $${sliderAmount}/month`)
+      subscribeButton.html(`Subscribe for $${sliderAmount}/month`)
     }
   }
 }
