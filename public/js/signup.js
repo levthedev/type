@@ -1,3 +1,5 @@
+var sliderAmount = 1.95
+
 var handler = StripeCheckout.configure({
   key: 'pk_test_wNSmUtnjPppeeG0wiWFGZIN4',
   locale: 'auto',
@@ -12,7 +14,7 @@ var handler = StripeCheckout.configure({
 $('#donateButton').on('click', function(e) {
   e.preventDefault()
   $('#error_explanation').html('')
-  var amount = $('input#amount').val()
+  var amount = $('input#amount').val() || sliderAmount.toString()
   amount = amount.replace(/\$/g, '').replace(/\,/g, '')
   amount = parseFloat(amount)
 
@@ -62,9 +64,8 @@ function rangeSlider(id, onDrag) {
 
   function updateDragger(e) {
     if (down && e.pageX >= rangeLeft && e.pageX <= (rangeLeft + rangeWidth)) {
-      let amount = Math.round(((e.pageX - rangeLeft) / rangeWidth) * 10 + 1)
       dragger.style.left = e.pageX - rangeLeft - draggerWidth + 'px'
-      console.log(Math.round(((e.pageX - rangeLeft) / rangeWidth) * 100))
+      sliderAmount = Math.round(((e.pageX - rangeLeft) / rangeWidth) * 10 + 1)
     }
   }
 }
