@@ -42,23 +42,21 @@ get '/signup' do
   erb :signup, :layout => :nav
 end
 
-get '/subscription/:amount/:token' do
-  amount = params[:amount]
-  token = params[:token]
-  plan = stripe_api_wrapper.create_plan(amount)
-  customer = stripe_api_wrapper.create_customer(token)
-  stripe_api_wrapper.subscribe_customer_to_plan(customer, plan)
-
-  erb :index, :layout => :nav
-end
-
 post '/charge' do
   token = params['stripeToken']
-  customer = stripe_api_wrapper.create_customer(token)
-  plan = stripe_api_wrapper.create_plan(params[:amount] || 69)
-  stripe_api_wrapper.subscribe_customer_to_plan(customer, plan, session)
-  redirect to('/demo')
-  erb :demo, :layout => :nav
+  begin
+    customer = stripe_api_wrapper.create_customer(token, session)
+    puts 'created customer'
+    plan = stripe_api_wrapper.create_plan(params[:amount] || 69)
+    puts 'created plan'
+    stripe_api_wrapper.subscribe_customer_to_plan(customer, plan, session)
+    puts 'subscribed customer to plan'
+    redirect to('/demo')
+    erb :demo, :layout => :nav
+  rescue StandardError => e
+    puts 'server error'
+    puts e
+  end
 end
 
 get '/auth/failure' do

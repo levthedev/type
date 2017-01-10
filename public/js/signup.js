@@ -25,6 +25,22 @@ function rangeSlider(id, onDrag) {
 
   function updateDragger(e) {
     if (down && e.pageX >= rangeLeft && e.pageX <= (rangeLeft + rangeWidth)) {
+      let form = document.getElementById('stripe-form')
+      let script = document.querySelector('#stripe-form button')
+      let amount = Math.round(((e.pageX - rangeLeft) / rangeWidth) * 10 + 1)
+      let newScript = `<script
+                        src="https://checkout.stripe.com/checkout.js"
+                        class="stripe-button"
+                        id="stripe-button"
+                        data-key="pk_test_wNSmUtnjPppeeG0wiWFGZIN4"
+                        data-image="/square-image.png"
+                        data-name="Paralela Subscription"
+                        data-description="($${amount})"
+                        data-amount="${amount}">
+                      </script>`
+
+      script.remove()
+      form.innerHTML = newScript
       dragger.style.left = e.pageX - rangeLeft - draggerWidth + 'px'
       console.log(Math.round(((e.pageX - rangeLeft) / rangeWidth) * 100))
     }

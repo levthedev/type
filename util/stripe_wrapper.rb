@@ -16,17 +16,22 @@ class StripeWrapper
     )
   end
 
-  def create_customer(token, description='No description given')
+  def create_customer(token, session)
     customer = nil
     begin
       customer = Stripe::Customer.retrieve(token)
     rescue Stripe::InvalidRequestError => e
       puts 'errored out'
       puts e
+      puts "session: #{session}"
+      puts "id: #{session[:id]}"
+      puts token
+      email = DB.from(:users).where(id: session[:id]).first[:email]
       customer = Stripe::Customer.create(
-        description: description,
+        description: email || 'No description given',
         source: token
       )
+      puts "created #{customer}"
     end
     customer
   end
