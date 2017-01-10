@@ -1,9 +1,10 @@
 var sliderAmount = 1.95
 var subscribeButton = $('#subscribeButton')
-var amount = document.getElementById('amount')
-amount.oninput = updateSubscribeButton
+var amountSelector = $('#amount')
+amountSelector.on('input', updateSubscribeButton)
 
 function updateSubscribeButton(e) {
+  console.log('yo')
   var inputAmount = parseFloat(e.target.value)
   if (inputAmount) {
     subscribeButton.html(`Subscribe for $${inputAmount.toFixed(2)}/month`)
@@ -25,6 +26,10 @@ $('#subscribeButton').on('click', function(e) {
   e.preventDefault()
   $('#error_explanation').html('')
   var amount = $('input#amount').val() || sliderAmount.toString()
+  console.log($('input#amount').val())
+  console.log(sliderAmount.toString())
+  console.log(typeof amount)
+  console.log(amount)
   amount = amount.replace(/\$/g, '').replace(/\,/g, '')
   amount = parseFloat(amount)
 
@@ -76,6 +81,8 @@ function rangeSlider(id, onDrag) {
       dragger.style.left = e.pageX - rangeLeft - draggerWidth + 'px'
       sliderAmount = Math.round(((e.pageX - rangeLeft) / rangeWidth) * 10 + 1)
       subscribeButton.html(`Subscribe for $${sliderAmount}/month`)
+      subscribeButton[0].value = `Subscribe for $${sliderAmount}/month`
+      amountSelector[0].value = sliderAmount
     }
   }
 }

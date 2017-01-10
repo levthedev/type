@@ -23,6 +23,8 @@ class StripeWrapper
     rescue Stripe::InvalidRequestError => e
       puts 'errored out'
       puts e
+      puts session[:id]
+      puts DB.from(:users).where(id: session[:id]).first
       email = DB.from(:users).where(id: session[:id]).first[:email]
       customer = Stripe::Customer.create(
         description: email || 'No description given',

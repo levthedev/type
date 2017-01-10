@@ -45,6 +45,8 @@ end
 post '/charge' do
   token = params['stripeToken']
   amount = params[:amount]
+  puts amount
+  puts amount.class
   amount = Float(amount.gsub('$', '').gsub(',', '')).round(2)
   amount = (amount * 100).to_i
   amount = 100 if amount < 100
