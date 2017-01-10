@@ -96,3 +96,17 @@ $primary: #6b59ef;
   padding: 3px;
   border-radius: 5px;
 }
+
+.perks {
+  margin-top: 20px;
+  border: 1px solid $primary;
+  border-radius: 10px;
+  padding: 10px;;
+}
+
+.perk {
+  // margin-top: 10px;
+  a {
+    color: $primary;
+  }
+}
