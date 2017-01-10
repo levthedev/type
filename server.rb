@@ -44,10 +44,18 @@ end
 
 post '/charge' do
   token = params['stripeToken']
+  amount = params[:amount]
+  amount = Float(amount.gsub('$', '').gsub(',', '')).round(2)
+  amount = (amount * 100).to_i
+  if amount < 100
+    puts "***********************"
+    puts "***********TOO LOW************"
+    puts "***********************"
+  end
   begin
     customer = stripe_api_wrapper.create_customer(token, session)
     puts 'created customer'
-    plan = stripe_api_wrapper.create_plan(params[:amount] || 69)
+    plan = stripe_api_wrapper.create_plan(amount || 100)
     puts 'created plan'
     stripe_api_wrapper.subscribe_customer_to_plan(customer, plan, session)
     puts 'subscribed customer to plan'

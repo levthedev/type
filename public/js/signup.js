@@ -1,3 +1,39 @@
+var handler = StripeCheckout.configure({
+  key: 'pk_test_wNSmUtnjPppeeG0wiWFGZIN4',
+  locale: 'auto',
+  name: 'Paralela',
+  description: 'Subscription',
+  token: function(token) {
+    $('input#stripeToken').val(token.id);
+    $('form').submit();
+  }
+})
+
+$('#donateButton').on('click', function(e) {
+  e.preventDefault()
+  $('#error_explanation').html('')
+  var amount = $('input#amount').val()
+  amount = amount.replace(/\$/g, '').replace(/\,/g, '')
+  amount = parseFloat(amount)
+
+  if (isNaN(amount)) {
+    $('#error_explanation').html('<p>Please enter a valid amount in USD ($).</p>')
+  }
+  else if (amount < 1.00) {
+    $('#error_explanation').html('<p>Donation amount must be at least $1.</p>')
+  }
+  else {
+    amount = amount * 100
+    handler.open({
+      amount: Math.round(amount)
+    })
+  }
+})
+
+$(window).on('popstate', function() {
+  handler.close()
+})
+
 function rangeSlider(id, onDrag) {
   var range = document.getElementById(id),
     dragger = range.children[0],
@@ -25,22 +61,7 @@ function rangeSlider(id, onDrag) {
 
   function updateDragger(e) {
     if (down && e.pageX >= rangeLeft && e.pageX <= (rangeLeft + rangeWidth)) {
-      let form = document.getElementById('stripe-form')
-      let script = document.querySelector('#stripe-form button')
       let amount = Math.round(((e.pageX - rangeLeft) / rangeWidth) * 10 + 1)
-      let newScript = `<script
-                        src="https://checkout.stripe.com/checkout.js"
-                        class="stripe-button"
-                        id="stripe-button"
-                        data-key="pk_test_wNSmUtnjPppeeG0wiWFGZIN4"
-                        data-image="/square-image.png"
-                        data-name="Paralela Subscription"
-                        data-description="($${amount})"
-                        data-amount="${amount}">
-                      </script>`
-
-      script.remove()
-      form.innerHTML = newScript
       dragger.style.left = e.pageX - rangeLeft - draggerWidth + 'px'
       console.log(Math.round(((e.pageX - rangeLeft) / rangeWidth) * 100))
     }

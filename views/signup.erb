@@ -1,23 +1,15 @@
-<div class="range-slider" id="range-slider">
-  <span></span>
-</div>
+<form action="/charge" method="POST" onsubmit="function() { return false }">
+  <div id="error_explanation">
+  </div>
+  <div class="range-slider" id="range-slider">
+    <span></span>
+  </div>
+  <label for="amount">Donation Amount:</label>
+  <input id="amount" name="amount" type="text" value="Donation Amount:" />
+  <input type="hidden" name="stripeToken" id="stripeToken"></input>
+  <button id='donateButton'>Donate</button>
+</form>
 
-<span id="form-wrapper">
-  <form action="/charge" method="POST" onsubmit="function() { return false }" id="stripe-form">
-    <script
-      src="https://checkout.stripe.com/checkout.js"
-      class="stripe-button"
-      id="stripe-button"
-      data-key="pk_test_wNSmUtnjPppeeG0wiWFGZIN4"
-      data-image="/square-image.png"
-      data-name="Paralela"
-      data-description="2 widgets ($20.00)"
-      data-amount="2000">
-    </script>
-  </form>
-</span>
-
-<style>
-  @import url('/stylesheets/signup.css');
-</style>
+<style>@import url('/stylesheets/signup.css');</style>
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <script src="./js/signup.js"></script>
