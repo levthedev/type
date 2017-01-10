@@ -4,7 +4,6 @@ var amountSelector = $('#amount')
 amountSelector.on('input', updateSubscribeButton)
 
 function updateSubscribeButton(e) {
-  console.log('yo')
   var inputAmount = parseFloat(e.target.value)
   if (inputAmount) {
     subscribeButton.html(`Subscribe for $${inputAmount.toFixed(2)}/month`)
