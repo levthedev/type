@@ -46,7 +46,7 @@ $primary: #6b59ef;
 
 .range-slider:before {
   content: "";
-  display: block;
+  // display: block;
   position: absolute;
   top: 4px;
   width: 100%;
@@ -63,4 +63,23 @@ $primary: #6b59ef;
   z-index: 2;
   background-color: $primary;
   cursor: inherit;
+}
+
+#amount {
+  padding: 7px;
+  border: solid 3px #c9c9c9;
+  transition: border 0.3s;
+  width: 30px;
+}
+
+#amount:focus, #amount.focus {
+  border: solid 3px #969696;
+  outline: none;
+}
+
+#average {
+  background-color: darken($background, 15);
+  border: 1px solid darken($background, 20);
+  padding: 3px;
+  border-radius: 5px;
 }

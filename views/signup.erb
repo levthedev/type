@@ -1,16 +1,25 @@
 <div class="signup-wrapper">
   Paralela is Pay What You Want - that means you can choose the price of your monthly subscription!
   There is a $1 minimum to cover payment processing, server hosting, and other developement costs.
+  <br>
+  <br>
+  The average subscription price is currently <span id='average'></span>
+  <br>
+  <br>
   Drag the slider below to choose a price, or enter it manually in the input next to the slider.
-  <form action="/charge" method="POST" onsubmit="function() { return false }">
+  <br>
+  <br>
+  <form action="/charge" method="POST" onsubmit="function() { return false }" autocomplete="off">
     <div id="error_explanation">
     </div>
     <div class="range-slider" id="range-slider">
       <span></span>
     </div>
-    <input id="amount" name="amount" type="text" placeholder="1.95" />
+    <input id="amount" name="amount" type="text" placeholder="$1.95" />
     <input type="hidden" name="stripeToken" id="stripeToken"></input>
-    <button class="submit" id='donateButton' style="outline: none;">Donate</button>
+    <br>
+    <br>
+    <button class="submit" id='donateButton' style="outline: none;">Subscribe for $1.95/month</button>
   </form>
 </div>
 

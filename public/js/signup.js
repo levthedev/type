@@ -1,4 +1,5 @@
 var sliderAmount = 1.95
+var donateButton = $('#donateButton')
 
 var handler = StripeCheckout.configure({
   key: 'pk_test_wNSmUtnjPppeeG0wiWFGZIN4',
@@ -44,7 +45,6 @@ function rangeSlider(id, onDrag) {
     rangeWidth, rangeLeft;
 
   dragger.style.width = draggerWidth + 'px'
-  // dragger.style.left = -draggerWidth + 'px'
 
   range.addEventListener("mousedown", function(e) {
     rangeWidth = this.offsetWidth
@@ -66,8 +66,20 @@ function rangeSlider(id, onDrag) {
     if (down && e.pageX >= rangeLeft && e.pageX <= (rangeLeft + rangeWidth)) {
       dragger.style.left = e.pageX - rangeLeft - draggerWidth + 'px'
       sliderAmount = Math.round(((e.pageX - rangeLeft) / rangeWidth) * 10 + 1)
+      donateButton.html(`Subscribe for $${sliderAmount}/month`)
     }
   }
 }
 
 rangeSlider('range-slider')
+
+document.querySelector('#average').textContent = '$2.39'
+var average = 2.39
+function incrementAverage() {
+  document.querySelector('#average').textContent = '$' + average
+  average = Math.floor(Math.random() * 10) + 1
+  average += (Math.floor(Math.random() * 100) + 1) / 100
+  average = average.toFixed(2)
+}
+
+setInterval(incrementAverage, 1500)
