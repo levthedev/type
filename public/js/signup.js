@@ -26,10 +26,6 @@ $('#subscribeButton').on('click', function(e) {
   e.preventDefault()
   $('#error_explanation').html('')
   var amount = $('input#amount').val() || sliderAmount.toString()
-  console.log($('input#amount').val())
-  console.log(sliderAmount.toString())
-  console.log(typeof amount)
-  console.log(amount)
   amount = amount.replace(/\$/g, '').replace(/\,/g, '')
   amount = parseFloat(amount)
 

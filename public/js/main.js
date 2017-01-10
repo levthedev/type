@@ -72,7 +72,7 @@ function advanceNode() {
     currentLetter = currentNode.textContent
   } else {
     stopEventListeners()
-    alert('Finished')
+    success()
   }
 }
 
@@ -94,6 +94,15 @@ function watchBackspace(event) {
       completedText = completedText.slice(0, -1)
     }
   }
+}
+
+function success() {
+  swal({
+    title: "Great job!",
+    text: "You've completed the first lesson.",
+    type: "success",
+    confirmButtonText: "Cool!"
+  })
 }
 
 function translate() {

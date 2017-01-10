@@ -86,10 +86,10 @@ get '/auth/:provider/callback' do
   end
 end
 
+require 'google/cloud/translate'
 get '/translate/:text' do
-  # require 'google/cloud/translate'
-  # translate = Google::Cloud::Translate.new
-  # translation = translate.translate(params[:text], to: 'en')
+  translate = Google::Cloud::Translate.new
+  translation = translate.translate(params[:text], to: 'en')
   # puts translation.text
-  # translation.text
+  translation.text
 end

@@ -1,40 +1,32 @@
 #main {
   width: 100vw;
-  height: 66vw;
-  margin-top: 10vh;
+  height: 40vw;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 #foreign {
-  width: 40vw;
-  height: 66vw;
-  display: inline-block;
-  vertical-align: top;
 }
 
 #translation {
-  width: 40vw;
-  height: 66vw;
-  display: inline-block;
-  vertical-align: top;
 }
 
 #separator {
-  height: 66vw;
-  width: 1px;
-  border-left: 1px solid grey;
+  height: 1px;
+  width: 66vw;
+  border-bottom: 1px solid grey;
   display: inline-block;
   vertical-align: top;
 }
 
 #spacer {
-  width: 5vw;
+  height: 2vh;
 }
 
 .letter {
