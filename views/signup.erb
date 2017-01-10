@@ -1,14 +1,19 @@
-<form action="/charge" method="POST" onsubmit="function() { return false }">
-  <div id="error_explanation">
-  </div>
-  <div class="range-slider" id="range-slider">
-    <span></span>
-  </div>
-  <label for="amount">Donation Amount:</label>
-  <input id="amount" name="amount" type="text" value="Donation Amount:" />
-  <input type="hidden" name="stripeToken" id="stripeToken"></input>
-  <button id='donateButton'>Donate</button>
-</form>
+<div class="signup-wrapper">
+  Paralela is Pay What You Want - that means you can choose the price of your monthly subscription!
+  There is a $1 minimum to cover payment processing, server hosting, and other developement costs.
+  Drag the slider below to choose a price, or enter it manually in the input next to the slider.
+  <form action="/charge" method="POST" onsubmit="function() { return false }">
+    <div id="error_explanation">
+    </div>
+    <div class="range-slider" id="range-slider">
+      <span></span>
+    </div>
+    <label for="amount">Donation Amount:</label>
+    <input id="amount" name="amount" type="text" value="Donation Amount:" />
+    <input type="hidden" name="stripeToken" id="stripeToken"></input>
+    <button class="submit" id='donateButton' style="outline: none;">Donate</button>
+  </form>
+</div>
 
 <style>@import url('/stylesheets/signup.css');</style>
 <script src="https://checkout.stripe.com/checkout.js"></script>

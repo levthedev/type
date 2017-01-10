@@ -47,24 +47,15 @@ post '/charge' do
   amount = params[:amount]
   amount = Float(amount.gsub('$', '').gsub(',', '')).round(2)
   amount = (amount * 100).to_i
-  if amount < 100
-    puts "***********************"
-    puts "***********TOO LOW************"
-    puts "***********************"
-  end
+  amount = 100 if amount < 100
   begin
     customer = stripe_api_wrapper.create_customer(token, session)
-    puts 'created customer'
     plan = stripe_api_wrapper.create_plan(amount || 100)
-    puts 'created plan'
     stripe_api_wrapper.subscribe_customer_to_plan(customer, plan, session)
-    puts 'subscribed customer to plan'
-    redirect to('/demo')
-    erb :demo, :layout => :nav
   rescue StandardError => e
-    puts 'server error'
-    puts e
+    puts "Error when charging: #{e}"
   end
+  erb :demo, :layout => :nav
 end
 
 get '/auth/failure' do
