@@ -1,8 +1,10 @@
 namespace :db do
   require "sequel"
+
   Sequel.extension :migration
   DB = Sequel.connect(ENV['DATABASE_URL'])
   DB.extension :pg_json
+  require "./util/models"
 
   desc "Prints current schema version"
   task :version do
