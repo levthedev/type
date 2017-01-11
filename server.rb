@@ -86,11 +86,3 @@ get '/auth/:provider/callback' do
     redirect to('/signup')
   end
 end
-
-require 'google/cloud/translate'
-get '/translate/:text' do
-  translate = Google::Cloud::Translate.new
-  translation = translate.translate(params[:text], to: 'en')
-  # puts translation.text
-  translation.text
-end
