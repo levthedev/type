@@ -17,6 +17,7 @@ end
 
 configure do
 	DB = Sequel.connect(ENV['DATABASE_URL'])
+  DB.extension :pg_json
 end
 
 enable :sessions

@@ -1,7 +1,8 @@
 namespace :db do
   require "sequel"
   Sequel.extension :migration
-  DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://database.db')
+  DB = Sequel.connect(ENV['DATABASE_URL'])
+  DB.extension :pg_json
 
   desc "Prints current schema version"
   task :version do

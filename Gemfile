@@ -6,6 +6,7 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'sass'
 gem 'stripe'
+gem 'pg'
 gem 'puma'
 
 gem 'google-cloud-translate'
@@ -15,15 +16,12 @@ group :development do
   gem 'flamegraph'
   gem 'memory_profiler'
   gem 'stackprof'
-  gem 'sqlite3'
   gem 'shotgun'
   gem 'better_errors'
-  gem 'google-cloud-translate'
   gem 'google-api-client'
   gem 'pry'
 end
 
 group :production do
   gem 'heroku-deflater'
-  gem 'pg'
 end
