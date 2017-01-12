@@ -4,5 +4,3 @@ client_secrets.json
 client_secret*
 database.db
 ./database.db
-lessons/*
-lessons
