@@ -6,18 +6,3 @@ Sequel.migration do
     end
   end
 end
-
-# Sequel.migration do
-#   down do
-#     drop_table :completed_lessons do
-#       foreign_key :user_id, :users, :cascade=>:cascade
-#       foreign_key :lesson_id, :lessons, :cascade=>:cascade
-#     end
-#   end
-# end
-
-# Sequel.migration do
-#   down do
-#     drop_table(:lessons)
-#   end
-# end

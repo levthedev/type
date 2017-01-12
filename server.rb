@@ -44,11 +44,29 @@ get '/signup' do
   erb :signup, :layout => :nav
 end
 
+get '/dashboard' do
+  sorted_lessons = Lesson.all.sort_by { |lesson| lesson.text.length }
+  erb :dashboard, :layout => :nav, locals: { lessons: sorted_lessons }
+end
+
+get '/lessons/:id' do
+  lesson = Lesson.where(id: params[:id]).first
+  erb :lesson, :layout => :nav, locals: { lesson: lesson }
+end
+
+get '/translation/:id/:text' do
+  lesson = Lesson.where(id: params[:id]).first
+  translation = lesson.translation[params[:text]]
+end
+
+get '/lessons/:id/text' do
+  lesson = Lesson.where(id: params[:id]).first
+  { text: lesson.text, translation: lesson.translation }.to_json
+end
+
 post '/charge' do
   token = params['stripeToken']
   amount = params[:amount]
-  puts amount
-  puts amount.class
   amount = Float(amount.gsub('$', '').gsub(',', '')).round(2)
   amount = (amount * 100).to_i
   amount = 100 if amount < 100
@@ -58,8 +76,9 @@ post '/charge' do
     stripe_api_wrapper.subscribe_customer_to_plan(customer, plan, session)
   rescue StandardError => e
     puts "Error when charging: #{e}"
+    erb :index, :layout => :nav
   end
-  erb :demo, :layout => :nav
+  erb :dashboard, :layout => :nav, locals: { lessons: Lesson.all }
 end
 
 get '/auth/failure' do
