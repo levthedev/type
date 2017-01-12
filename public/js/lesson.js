@@ -6,12 +6,11 @@ var completedText = ''
 var translations = {}
 
 function getLesson() {
-  $.get(`/lessons/14/text`, function(data) {
+  var currentLessonId = window.location.href.split('/').slice(-1)
+  $.get(`/lessons/${currentLessonId}/text`, function(data) {
     jsonData = JSON.parse(data)
-    var text = jsonData['text']
-    console.log(jsonData)
     translations = jsonData['translation']
-    createTextNodes(text)
+    createTextNodes(jsonData['text'])
   })
 }
 
