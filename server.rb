@@ -6,7 +6,6 @@ require './util/stripe_wrapper'
 
 configure :development do
   require 'better_errors'
-  use Rack::MiniProfiler
   use BetterErrors::Middleware
   BetterErrors.application_root = __dir__
 end
@@ -23,7 +22,7 @@ set :session_secret, ENV['SESSION_SECRET']
 use Rack::Deflater
 
 use OmniAuth::Builder do
-  provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {access_type: 'offline', prompt: 'consent', scope: 'userinfo.email'}
+  provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {prompt: 'consent'}
 end
 
 stripe_api_wrapper = StripeWrapper.new()
@@ -62,7 +61,7 @@ end
 
 get '/lessons/:id/text' do
   lesson = Lesson.where(id: params[:id]).first
-  { text: lesson.text, translation: lesson.translation }.to_json
+  { text: lesson.text.strip, translation: lesson.translation }.to_json
 end
 
 post '/charge' do
@@ -91,6 +90,7 @@ get '/auth/:provider/callback' do
   auth_hash = request.env['omniauth.auth'].to_hash
   email = auth_hash['info']['email']
   first_name = auth_hash['info']['first_name']
+  session[:token] = auth_hash['credentials']['token']
 
   users = DB.from(:users)
   user = users.where(email: email).limit(1).first
@@ -106,4 +106,14 @@ get '/auth/:provider/callback' do
     session[:id] = user_id
     redirect to('/signup')
   end
+end
+
+get '/logout' do
+  uri = URI('https://accounts.google.com/o/oauth2/revoke')
+  params = { token: session[:token] }
+  uri.query = URI.encode_www_form(params)
+  response = Net::HTTP.get(uri)
+  session.delete(:id)
+  session.delete(:token)
+  redirect to('/')
 end

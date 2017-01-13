@@ -20,9 +20,15 @@
           <a href='/'><span class="logo">P</span></a>
         </div>
         <span id='links'>
-          <a class='link link-3' id="price-link" href="/#line">About</a>
-          <a class='link link-2' href="/auth/google_oauth2">Login</a>
-          <a class='link link-1' href="/demo">Demo</a>
+          <% if session[:id] %>
+               <a class='link link-3' id="price-link" href="/#line">About</a>
+               <a class='link link-2' href="/categories">Categories</a>
+               <a class='link link-1' href="/logout">Logout</a>
+          <% else %>
+               <a class='link link-3' id="price-link" href="/#line">About</a>
+               <a class='link link-2' href="/auth/google_oauth2">Login</a>
+               <a class='link link-1' href="/demo">Demo</a>
+          <% end %>
         </span>
       </nav>
     </nav>

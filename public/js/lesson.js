@@ -79,9 +79,7 @@ function advanceNode() {
   completedText += currentNode.textContent
 
   currentNode = currentNode.nextSibling
-  //TODO - fix backspace error here; for some reason the texts are never equal
   if (completedText == text) {
-    console.log('wooo')
     stopEventListeners()
     success()
   } else if (currentNode) {
@@ -105,14 +103,14 @@ function watchBackspace(event) {
       currentNode.classList.add('current')
 
       currentLetter = currentNode.textContent
-      completedText = completedText.slice(0, -1)
+      if (!(currentNode.classList.contains('incorrect') || currentNode.classList.contains('incorrect-space'))) {
+        completedText = completedText.slice(0, -1)
+      }
     }
-    console.log(completedText)
   }
 }
 
 function success() {
-  console.log('success')
   swal({
     title: "Great job!",
     text: "You've completed the first lesson.",

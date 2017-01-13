@@ -15,7 +15,8 @@ class Parser
     words.map.with_index do |word, index|
       current_sentence = words[0..index].join(' ')
       translated_chunk = @translator.translate(current_sentence, to: 'en')
-      translation[current_sentence] = translated_chunk.text.gsub("&#39;", "'")
+      sanitized_chunk = translated_chunk.text.gsub("&#39;", "'").strip
+      translation[current_sentence] = sanitized_chunk
     end
     language = @translator.translate(text, to: 'en').language
     @db[:lessons].insert(
