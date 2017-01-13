@@ -6,10 +6,6 @@ require './util/stripe_wrapper'
 
 configure :development do
   require 'better_errors'
-  require 'rack-mini-profiler'
-  require 'memory_profiler'
-  require 'flamegraph'
-
   use Rack::MiniProfiler
   use BetterErrors::Middleware
   BetterErrors.application_root = __dir__

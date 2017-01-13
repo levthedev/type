@@ -12,10 +12,6 @@ gem 'puma'
 gem 'google-cloud-translate'
 
 group :development do
-  gem 'rack-mini-profiler'
-  gem 'flamegraph'
-  gem 'memory_profiler'
-  gem 'stackprof'
   gem 'shotgun'
   gem 'better_errors'
   gem 'google-api-client'
