@@ -79,11 +79,11 @@ post '/charge' do
     customer = stripe_api_wrapper.create_customer(token, session)
     plan = stripe_api_wrapper.create_plan(amount || 100)
     stripe_api_wrapper.subscribe_customer_to_plan(customer, plan, session)
+    redirect to('/categories')
   rescue StandardError => e
     puts "Error when charging: #{e}"
-    erb :index, :layout => :nav
+    redirect to('/')
   end
-  erb :categories, :layout => :nav, locals: { lessons: Lesson.all }
 end
 
 get '/auth/failure' do
@@ -101,7 +101,7 @@ get '/auth/:provider/callback' do
 
   if user && user[:subscribed]
     session[:id] = user[:id]
-    redirect to('/demo')
+    redirect to('/categories')
   elsif user
     session[:id] = user[:id]
     redirect to('/signup')
