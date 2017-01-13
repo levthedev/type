@@ -2,6 +2,7 @@ var currentLetter
 var currentNode
 var cursor
 var foreign
+var text = ''
 var completedText = ''
 var translations = {}
 
@@ -10,6 +11,7 @@ function getLesson() {
   $.get(`/lessons/${currentLessonId}/text`, function(data) {
     jsonData = JSON.parse(data)
     translations = jsonData['translation']
+    text = jsonData['text']
     createTextNodes(jsonData['text'])
   })
 }
@@ -50,7 +52,6 @@ function processKeyStrokes(event) {
   var charCodeString = String.fromCharCode(charCode)
 
   if (charCodeString === currentLetter || charCodeString === normalized(currentLetter)) {
-    console.log('advancing')
     advanceNode()
     if (currentNode && /\s/.test(currentNode.textContent)) {
       translate()
@@ -78,12 +79,14 @@ function advanceNode() {
   completedText += currentNode.textContent
 
   currentNode = currentNode.nextSibling
-  if (currentNode) {
-    currentNode.classList.add('current')
-    currentLetter = currentNode.textContent
-  } else {
+  //TODO - fix backspace error here; for some reason the texts are never equal
+  if (completedText == text) {
+    console.log('wooo')
     stopEventListeners()
     success()
+  } else if (currentNode) {
+    currentNode.classList.add('current')
+    currentLetter = currentNode.textContent
   }
 }
 
@@ -109,6 +112,7 @@ function watchBackspace(event) {
 }
 
 function success() {
+  console.log('success')
   swal({
     title: "Great job!",
     text: "You've completed the first lesson.",
