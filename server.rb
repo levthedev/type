@@ -44,9 +44,14 @@ get '/signup' do
   erb :signup, :layout => :nav
 end
 
-get '/dashboard' do
-  sorted_lessons = Lesson.all.sort_by { |lesson| lesson.text.length }
-  erb :dashboard, :layout => :nav, locals: { lessons: sorted_lessons }
+get '/category/:category' do
+  lessons = Lesson.where(category: params[:category]).to_a
+  erb :category, :layout => :nav, locals: { lessons: lessons }
+end
+
+get '/categories' do
+  categories = Lesson.map(&:category).uniq
+  erb :categories, :layout => :nav, locals: { categories: categories }
 end
 
 get '/lessons/:id' do
@@ -78,7 +83,7 @@ post '/charge' do
     puts "Error when charging: #{e}"
     erb :index, :layout => :nav
   end
-  erb :dashboard, :layout => :nav, locals: { lessons: Lesson.all }
+  erb :categories, :layout => :nav, locals: { lessons: Lesson.all }
 end
 
 get '/auth/failure' do

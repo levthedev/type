@@ -50,6 +50,7 @@ function processKeyStrokes(event) {
   var charCodeString = String.fromCharCode(charCode)
 
   if (charCodeString === currentLetter || charCodeString === normalized(currentLetter)) {
+    console.log('advancing')
     advanceNode()
     if (currentNode && /\s/.test(currentNode.textContent)) {
       translate()
@@ -103,6 +104,7 @@ function watchBackspace(event) {
       currentLetter = currentNode.textContent
       completedText = completedText.slice(0, -1)
     }
+    console.log(completedText)
   }
 }
 

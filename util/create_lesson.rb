@@ -8,7 +8,7 @@ class Parser
     @translator = Google::Cloud::Translate.new
   end
 
-  def parse_text(text="")
+  def parse_text(text, category)
     words = text.split(' ')
     translation = Sequel.pg_json({})
 
@@ -18,13 +18,25 @@ class Parser
       translation[current_sentence] = translated_chunk.text.gsub("&#39;", "'")
     end
     language = @translator.translate(text, to: 'en').language
-    @db[:lessons].insert(text: text, translation: translation, language: language)
+    @db[:lessons].insert(
+      text: text,
+      translation: translation,
+      language: language,
+      category: category
+    )
   end
 
   def parse_files()
-    ARGV.each do |file_path|
-      text = File.read(file_path)
-      parse_text(text)
+    # ARGV.each do |file_path|
+    #   text = File.read("lessons/fr/#{file_path}")
+    #   category = file_path.split('/').last
+    #   parse_text(text, category)
+    # end
+    ['conversation', 'stories', 'news', 'poetry'].map do |category|
+      (1..8).map do |n|
+        text = File.read("lessons/fr/#{category}/#{n}")
+        parse_text(text, category)
+      end
     end
   end
 end
