@@ -111,15 +111,20 @@ function watchBackspace(event) {
 }
 
 function success() {
+  $.post(window.location.pathname + '/completed', function(data) {
+    console.log(data)
+  })
+
   swal({
-    title: "<strong>Great job!</strong>",
-    text: "You've completed the first <em>lesson.</em>",
+    title: "Great job!",
+    text: "You've completed the first lesson.",
     type: "success",
     confirmButtonText: "Back to Categories",
     confirmButtonColor: "#6b59ef",
     html: true
   })
   $('button.confirm').on('click', function() {
+    // TODO - make this go to the correct category
     window.location.href = '/categories'
   })
 }

@@ -42,7 +42,15 @@ end
 
 get '/category/:category' do
   authenticate!
-  lessons = Lesson.where(category: params[:category]).to_a
+  user = User.where(id: session[:id]).first
+  lessons = Lesson.where(category: params[:category]).to_a.map do |lesson|
+    {
+      id: lesson.id,
+      text: lesson.text,
+      category: lesson.category,
+      completed: user.lessons.any? {|user_lesson| lesson.id === user_lesson.id}
+    }
+  end
   erb :category, :layout => :nav, locals: { lessons: lessons }
 end
 
@@ -56,6 +64,13 @@ get '/lessons/:id' do
   authenticate!
   lesson = Lesson.where(id: params[:id]).first
   erb :lesson, :layout => :nav, locals: { lesson: lesson }
+end
+
+post '/lessons/:id/completed' do
+  authenticate!
+  lesson = Lesson.where(id: params[:id]).first
+  user = User.where(id: session[:id]).first
+  user.add_lesson(lesson)
 end
 
 get '/lessons/:id/text' do

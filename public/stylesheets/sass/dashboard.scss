@@ -19,6 +19,9 @@ $grey: lighten(#000, 25%);
     text-decoration: none;
     color: black;
   }
+  a.completed{
+    color: green;
+  }
 }
 
 .lesson {

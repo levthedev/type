@@ -1,11 +1,13 @@
 <div id='dashboard-wrapper'>
-  <h1 id='header'> <%= lessons.first.category.split('_').map(&:capitalize).join(' ') %> </h1>
+  <h1 id='header'> <%= lessons.first[:category].split('_').map(&:capitalize).join(' ') %> </h1>
   <br>
   <a href='/categories'>Back to all categories</a>
   <div id='lessons'>
     <% lessons.map do |lesson| %>
-      <a href='/lessons/<%=lesson.id%>'>
-        <div class='lesson'><%= lesson.text %></div>
+      <a href='/lessons/<%=lesson[:id]%>' class='<%= 'completed' if lesson[:completed] %>'>
+        <div class='lesson'>
+          <%= lesson[:text] %>
+        </div>
       </a>
     <% end %>
   </div>
