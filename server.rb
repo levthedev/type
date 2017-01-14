@@ -36,7 +36,8 @@ get '/demo' do
 end
 
 get '/signup' do
-  erb :signup, :layout => :nav
+  email = User.where(id: session[:id]).first[:email]
+  erb :signup, :layout => :nav, locals: { email: email }
 end
 
 get '/category/:category' do

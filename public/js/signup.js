@@ -10,11 +10,13 @@ function updateSubscribeButton(e) {
   }
 }
 
+email = document.getElementById('email').textContent
 var handler = StripeCheckout.configure({
   key: 'pk_test_wNSmUtnjPppeeG0wiWFGZIN4',
   locale: 'auto',
   name: 'Paralela',
   description: 'Subscription',
+  email: email,
   token: function(token) {
     $('input#stripeToken').val(token.id);
     $('form').submit();
