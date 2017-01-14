@@ -110,12 +110,22 @@ function watchBackspace(event) {
   }
 }
 
+// $('button.confirm').on('click', function() {
+//   console.log('confirming')
+//   window.location.href = '/categories'
+// })
+
 function success() {
   swal({
-    title: "Great job!",
-    text: "You've completed the first lesson.",
+    title: "<strong>Great job!</strong>",
+    text: "You've completed the first <em>lesson.</em>",
     type: "success",
-    confirmButtonText: "Cool!"
+    confirmButtonText: "Back to Categories",
+    confirmButtonColor: "#6b59ef",
+    html: true
+  })
+  $('button.confirm').on('click', function() {
+    window.location.href = '/categories'
   })
 }
 
