@@ -40,28 +40,33 @@ get '/signup' do
 end
 
 get '/category/:category' do
+  authenticate!
   lessons = Lesson.where(category: params[:category]).to_a
   erb :category, :layout => :nav, locals: { lessons: lessons }
 end
 
 get '/categories' do
+  authenticate!
   categories = Lesson.map(&:category).uniq
   erb :categories, :layout => :nav, locals: { categories: categories }
 end
 
 get '/lessons/:id' do
+  authenticate!
   lesson = Lesson.where(id: params[:id]).first
   erb :lesson, :layout => :nav, locals: { lesson: lesson }
 end
 
-get '/translation/:id/:text' do
-  lesson = Lesson.where(id: params[:id]).first
-  translation = lesson.translation[params[:text]]
-end
-
 get '/lessons/:id/text' do
+  authenticate!
   lesson = Lesson.where(id: params[:id]).first
   { text: lesson.text.strip, translation: lesson.translation }.to_json
+end
+
+get '/translation/:id/:text' do
+  authenticate!
+  lesson = Lesson.where(id: params[:id]).first
+  lesson.translation[params[:text]]
 end
 
 post '/charge' do
@@ -116,4 +121,10 @@ get '/logout' do
   session.delete(:id)
   session.delete(:token)
   redirect to('/')
+end
+
+def authenticate!
+  unless session[:id] && session[:token]
+    redirect to('/')
+  end
 end
