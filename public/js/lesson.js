@@ -53,7 +53,7 @@ function processKeyStrokes(event) {
 
   if (charCodeString === currentLetter || charCodeString === normalized(currentLetter)) {
     advanceNode()
-    if (currentNode && /\s/.test(currentNode.textContent)) {
+    if ((currentNode && /\s/.test(currentNode.textContent)) || !currentNode) {
       translate()
     }
   } else {
