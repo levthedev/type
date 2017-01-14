@@ -110,11 +110,6 @@ function watchBackspace(event) {
   }
 }
 
-// $('button.confirm').on('click', function() {
-//   console.log('confirming')
-//   window.location.href = '/categories'
-// })
-
 function success() {
   swal({
     title: "<strong>Great job!</strong>",
