@@ -1,9 +1,11 @@
+foo = 'pp'
+bar = 'p'
 var currentLetter
 var currentNode
 var cursor
 var foreign
 var text = ''
-var completedText = ''
+completedText = ''
 var translations = {}
 
 function getLesson() {
@@ -12,6 +14,7 @@ function getLesson() {
     jsonData = JSON.parse(data)
     translations = jsonData['translation']
     text = jsonData['text']
+    foo = text
     createTextNodes(jsonData['text'])
   })
 }
@@ -32,16 +35,20 @@ function createCursor() {
 
 function createTextNodes(text) {
   text.split('').map(function(letter, i) {
+    if (letter === "\n") {
+      var br = document.createElement('br')
+      foreign.appendChild(br)
+      foreign.appendChild(br)
+      letter = "\n"
+    }
     var span = document.createElement('span')
     span.classList.add('letter')
     span.innerHTML = letter
-
     if (i === 0) {
       span.classList.add('current')
       currentLetter = letter
       currentNode = span
     }
-
     foreign.appendChild(span)
   })
 }
@@ -53,7 +60,7 @@ function processKeyStrokes(event) {
 
   if (charCodeString === currentLetter || charCodeString === normalized(currentLetter)) {
     advanceNode()
-    if ((currentNode && /\s/.test(currentNode.textContent)) || !currentNode) {
+    if ((currentNode && /\s|\n/.test(currentNode.textContent)) || !currentNode) {
       translate()
     }
   } else {
@@ -85,6 +92,11 @@ function advanceNode() {
   } else if (currentNode) {
     currentNode.classList.add('current')
     currentLetter = currentNode.textContent
+    console.log(currentNode)
+  }
+  bar = currentNode
+  if (currentNode.nodeName === 'BR') {
+    advanceNode()
   }
 }
 
@@ -111,9 +123,7 @@ function watchBackspace(event) {
 }
 
 function success() {
-  $.post(window.location.pathname + '/completed', function(data) {
-    console.log(data)
-  })
+  $.post(window.location.pathname + '/completed', function() {})
 
   swal({
     title: "Great job!",
@@ -139,7 +149,7 @@ function normalized(letter) {
   if (letter === 'ù' || letter === 'û' || letter === 'ü') return 'u'
   if (letter === 'à' || letter === 'â') return 'a'
   if (letter === 'î' || letter === 'ï') return 'i'
-  if (letter === 'ô') return 'o'
+  if (letter === 'ô' ||  letter === 'œ') return 'o'
   if (letter === 'ç') return 'c'
 }
 
