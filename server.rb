@@ -37,7 +37,7 @@ end
 
 get '/signup' do
   user = User.where(id: session[:id]).first
-  user? email = user[:email] : email = nil
+  user ? email = user[:email] : email = nil
   erb :signup, :layout => :nav, locals: { email: email }
 end
 
