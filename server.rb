@@ -77,7 +77,7 @@ end
 get '/lessons/:id/text' do
   authenticate!
   lesson = Lesson.where(id: params[:id]).first
-  { text: lesson.text.strip, translation: lesson.translation }.to_json
+  { text: lesson.text.strip, translation: lesson.translation, category: lesson.category }.to_json
 end
 
 get '/translation/:id/:text' do

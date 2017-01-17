@@ -1,5 +1,3 @@
-foo = 'pp'
-bar = 'p'
 var currentLetter
 var currentNode
 var cursor
@@ -7,6 +5,7 @@ var foreign
 var text = ''
 completedText = ''
 var translations = {}
+var category = 'conversation'
 
 function getLesson() {
   var currentLessonId = window.location.href.split('/').slice(-1)
@@ -14,7 +13,7 @@ function getLesson() {
     jsonData = JSON.parse(data)
     translations = jsonData['translation']
     text = jsonData['text']
-    foo = text
+    category = jsonData['category']
     createTextNodes(jsonData['text'])
   })
 }
@@ -94,7 +93,6 @@ function advanceNode() {
     currentLetter = currentNode.textContent
     console.log(currentNode)
   }
-  bar = currentNode
   if (currentNode.nodeName === 'BR') {
     advanceNode()
   }
@@ -129,13 +127,12 @@ function success() {
     title: "Great job!",
     text: "You've completed the first lesson.",
     type: "success",
-    confirmButtonText: "Back to Categories",
+    confirmButtonText: `Back to ${category.charAt(0).toUpperCase()}${category.slice(1)}`,
     confirmButtonColor: "#6b59ef",
     html: true
   })
   $('button.confirm').on('click', function() {
-    // TODO - make this go to the correct category
-    window.location.href = '/categories'
+    window.location.href = `/category/${category}`
   })
 }
 

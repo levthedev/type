@@ -3,9 +3,10 @@ $primary: #6b59ef;
 $grey: lighten(#000, 25%);
 
 #dashboard-wrapper {
-  width: 65vw;
+  width: 50vw;
+  max-width: 800px;
   height: 85vh;
-  margin-left: 20vw;
+  margin: 0 auto;
   text-align: center;
 }
 
