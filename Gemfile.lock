@@ -1,6 +1,24 @@
+GIT
+  remote: git://github.com/cbetta/letsencrypt-rails-heroku.git
+  revision: 00e6a05fde4025536cfe0f9177d9c86ef53d2f5f
+  specs:
+    letsencrypt-rails-heroku (0.2.7)
+      acme-client (~> 0.4.0)
+      platform-api
+
+GIT
+  remote: git://github.com/jalada/platform-api.git
+  revision: 45ddb3c1a7e2c7f85d979c0791db18e99affb237
+  branch: master
+  specs:
+    platform-api (0.8.0)
+      heroics (~> 0.0.17)
+
 GEM
   remote: https://rubygems.org/
   specs:
+    acme-client (0.4.1)
+      faraday (~> 0.9, >= 0.9.1)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     better_errors (2.1.1)
@@ -11,6 +29,7 @@ GEM
     domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
+    excon (0.54.0)
     faraday (0.10.1)
       multipart-post (>= 1.2, < 3)
     google-api-client (0.9.20)
@@ -36,6 +55,12 @@ GEM
       os (~> 0.9)
       signet (~> 0.7)
     hashie (3.4.6)
+    heroics (0.0.17)
+      erubis (~> 2.0)
+      excon
+      moneta
+      multi_json (>= 1.9.2)
+      netrc
     heroku-deflater (0.6.2)
       rack (>= 1.4.5)
     http-cookie (1.0.3)
@@ -52,6 +77,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
+    moneta (0.8.1)
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -84,6 +110,7 @@ GEM
     rack (1.6.5)
     rack-protection (1.5.3)
       rack
+    rake (12.0.0)
     representable (2.3.0)
       uber (~> 0.0.7)
     rest-client (2.0.0)
@@ -124,11 +151,14 @@ DEPENDENCIES
   google-api-client
   google-cloud-translate
   heroku-deflater
+  letsencrypt-rails-heroku!
   omniauth
   omniauth-google-oauth2
   pg
+  platform-api!
   pry
   puma
+  rake
   sass
   shotgun
   sinatra
