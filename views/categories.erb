@@ -4,7 +4,7 @@
   <div id='lessons'>
     <% categories.map do |category| %>
       <a href='/category/<%=category%>'>
-        <div class='lesson'><%= category.split('_').map(&:capitalize).join(' ') %>
+        <div class='lesson'><%= category.split('_').map(&:capitalize).join(' ').gsub(' Ii', 'II') %>
         </div>
       </a>
     <% end %>

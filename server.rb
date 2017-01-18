@@ -1,8 +1,12 @@
-require 'sinatra'
-require 'sinatra/sequel'
+require 'letsencrypt-rails-heroku'
 require 'omniauth'
 require 'omniauth-google-oauth2'
+require 'sinatra'
+require 'sinatra/sequel'
 require './util/stripe_wrapper'
+
+Letsencrypt.configure
+use Letsencrypt::Middleware
 
 configure :development do
   require 'better_errors'
