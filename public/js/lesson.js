@@ -91,11 +91,10 @@ function advanceNode() {
   } else if (currentNode) {
     currentNode.classList.add('current')
     currentLetter = currentNode.textContent
-    console.log(currentNode)
   }
-  if (currentNode.nodeName === 'BR') {
-    advanceNode()
-  }
+  // if (currentNode.nodeName === 'BR') {
+  //   advanceNode()
+  // }
 }
 
 function watchBackspace(event) {
@@ -122,18 +121,23 @@ function watchBackspace(event) {
 
 function success() {
   $.post(window.location.pathname + '/completed', function() {})
-
-  swal({
-    title: "Great job!",
-    text: "You've completed the first lesson.",
-    type: "success",
-    confirmButtonText: `Back to ${category.charAt(0).toUpperCase()}${category.slice(1)}`,
-    confirmButtonColor: "#6b59ef",
-    html: true
-  })
-  $('button.confirm').on('click', function() {
-    window.location.href = `/category/${category}`
-  })
+  var scrubbedCategory = category.split('_').join(' ')
+  scrubbedCategory = scrubbedCategory.charAt(0).toUpperCase() + scrubbedCategory.slice(1)
+  scrubbedCategory = scrubbedCategory.replace(' i', ' I')
+  scrubbedCategory = scrubbedCategory.replace(' ii', ' II')
+  setTimeout(function() {
+    swal({
+      title: "Great job!",
+      text: "You've completed a lesson.",
+      type: "success",
+      confirmButtonText: `Back to ${scrubbedCategory}`,
+      confirmButtonColor: "#6b59ef",
+      html: true
+    })
+    $('button.confirm').on('click', function() {
+      window.location.href = `/category/${category}`
+    })
+  }, 1000)
 }
 
 function translate() {

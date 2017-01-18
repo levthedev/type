@@ -37,6 +37,7 @@ $grey: lighten(#000, 25%);
   transition: border 0.2s ease-in-out;
   transition: color 0.2s ease-in-out;
   opacity: 1;
+  margin-top: 25px;
   &:hover {
     color: $primary;
     border: 1px solid $primary;

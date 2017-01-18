@@ -34,12 +34,12 @@ class Parser
     #   parse_text(text, category)
     # end
     [
-      # 'conversation',
-      # 'stories',
-      # 'news',
-      'poetry'
+      # 'conversation_i',
+      # 'conversation_ii'
+      'news',
+      'literature'
     ].map do |category|
-      (1..1).map do |n|
+      (1..8).map do |n|
         text = File.read("lessons/fr/#{category}/#{n}")
         parse_text(text, category)
       end
