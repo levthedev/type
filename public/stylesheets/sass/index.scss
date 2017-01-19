@@ -89,7 +89,6 @@ $grey: lighten(#000, 25%);
 
 #login {
   text-decoration: none;
-
 }
 
 #login img {
@@ -100,8 +99,8 @@ $grey: lighten(#000, 25%);
 }
 
 #login:hover, #login:focus, #login:active, #login:visited {
-    color: darken($primary, 20);
-    text-decoration: none;
+  color: darken($primary, 20);
+  text-decoration: none;
 }
 
 #price .faq-button {
