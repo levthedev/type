@@ -11,8 +11,8 @@ gem 'sass'
 gem 'sinatra'
 gem 'sinatra-sequel'
 gem 'stripe'
-gem 'platform-api', github: 'jalada/platform-api', branch: 'master'
-gem 'letsencrypt-rails-heroku', github: 'cbetta/letsencrypt-rails-heroku'
+gem 'platform-api', git: 'https://github.com/jalada/platform-api.git', branch: 'master'
+gem 'letsencrypt-rails-heroku', git: 'https://github.com/cbetta/letsencrypt-rails-heroku.git', branch: 'master'
 
 group :development do
   gem 'shotgun'

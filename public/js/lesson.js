@@ -1,9 +1,9 @@
-var currentLetter
-var currentNode
-var cursor
-var foreign
+var currentLetter = undefined
+var currentNode = undefined
+var cursor = undefined
+var foreign = undefined
 var text = ''
-completedText = ''
+var completedText = ''
 var translations = {}
 var category = 'conversation'
 
@@ -67,10 +67,11 @@ function processKeyStrokes(event) {
     if (currentNode.textContent === ' ') currentNode.classList.add('incorrect-space')
     currentNode.appendChild(cursor)
 
-    currentNode = currentNode.nextSibling
-    currentNode.classList.add('current')
-
-    currentLetter = currentNode.textContent
+    if (currentNode.nextSibling) {
+      currentNode = currentNode.nextSibling
+      currentNode.classList.add('current')
+      currentLetter = currentNode.textContent
+    }
   }
   if (event.keyCode === 32 || event.which === 32) { event.preventDefault(); return false }
 }
@@ -96,22 +97,21 @@ function advanceNode() {
   //   advanceNode()
   // }
 }
-
 function watchBackspace(event) {
   if (event.keyCode === 8) {
     event.preventDefault()
-    if (!$(currentNode.previousSibling).is(':first-child')) {
-      currentNode.classList.remove('current')
-      currentNode.classList.remove('incorrect')
-      currentNode.classList.remove('incorrect-space')
-      currentNode.classList.remove('completed')
-
+    currentNode.classList.remove('incorrect')
+    currentNode.classList.remove('incorrect-space')
+    currentNode.classList.remove('completed')
+    currentNode.classList.remove('current')
+    if (!$(currentNode).is(':first-child')) {
       currentNode = currentNode.previousSibling
+      currentLetter = currentNode.textContent
+
       currentNode.previousSibling.appendChild(cursor)
       currentNode.classList.remove('completed')
       currentNode.classList.add('current')
 
-      currentLetter = currentNode.textContent
       if (!(currentNode.classList.contains('incorrect') || currentNode.classList.contains('incorrect-space'))) {
         completedText = completedText.slice(0, -1)
       }
