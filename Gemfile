@@ -19,6 +19,7 @@ group :development do
   gem 'better_errors'
   gem 'google-api-client'
   gem 'pry'
+  gem 'tux'
 end
 
 group :production do
