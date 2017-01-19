@@ -1,0 +1,29 @@
+$primary: #6b59ef;
+
+#login-wrapper {
+  width: 100vw;
+  text-align: center;
+}
+
+#login {
+  text-decoration: none;
+}
+
+#login img {
+  height: 3em;
+  &:hover {
+    filter: brightness(110%);
+  }
+}
+
+#login:hover, #login:focus, #login:active, #login:visited {
+  color: darken($primary, 20);
+  text-decoration: none;
+}
+
+#complete-text {
+  text-align: center;
+  width: 50vw;
+  margin: 0 auto;
+  margin-top: 50px;
+}
