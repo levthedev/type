@@ -35,8 +35,17 @@ get '/' do
   erb :index, :layout => :nav
 end
 
-get '/demo' do
+get '/demo/:id' do
   erb :demo, :layout => :nav
+end
+
+get '/demo/:id/text' do
+  lesson = Lesson.where(category: 'demo').to_a[params[:id].to_i - 1]
+  { text: lesson.text.strip, translation: lesson.translation, category: lesson.category }.to_json
+end
+
+get '/complete' do
+  erb :complete, layout: :nav
 end
 
 get '/signup' do
@@ -61,7 +70,8 @@ end
 
 get '/categories' do
   authenticate!
-  categories = Lesson.map(&:category).uniq
+  categories = Lesson.map(&:category).uniq.reject {|c| c === "demo"}
+  puts categories
   erb :categories, :layout => :nav, locals: { categories: categories }
 end
 
