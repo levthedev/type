@@ -22,6 +22,8 @@ function success() {
       type: "success",
       confirmButtonText: `Back to ${scrubbedCategory}`,
       confirmButtonColor: "#6b59ef",
+      showCancelButton: true,
+      cancelButtonText: "Stay here",
       html: true
     })
     $('button.confirm').on('click', function() {
