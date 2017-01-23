@@ -4,9 +4,9 @@ require 'securerandom'
 class StripeWrapper
   def initialize()
     if ENV['RACK_ENV'] === 'production'
-       Stripe.api_key = ENV['TEST_STRIPE_PRIVATE_KEY']
-    else
        Stripe.api_key = ENV['PROD_STRIPE_PRIVATE_KEY']
+    else
+       Stripe.api_key = ENV['TEST_STRIPE_PRIVATE_KEY']
      end
   end
 
