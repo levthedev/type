@@ -11,8 +11,9 @@ function updateSubscribeButton(e) {
 }
 
 email = document.getElementById('email').textContent
+console.log('from script', stripe_public_key)
 var handler = StripeCheckout.configure({
-  key: 'pk_test_wNSmUtnjPppeeG0wiWFGZIN4',
+  key: stripe_public_key,
   locale: 'auto',
   name: 'Paralela',
   description: 'Subscription',

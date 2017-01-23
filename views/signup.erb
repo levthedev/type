@@ -38,5 +38,8 @@
 <span id="email" style="display:none"><%= email %></span>
 
 <style>@import url('/stylesheets/signup.css');</style>
+<script>
+  var stripe_public_key = `<%= stripe_public_key %>`
+</script>
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script src="./js/signup.js"></script>

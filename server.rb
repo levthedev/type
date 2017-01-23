@@ -32,11 +32,11 @@ end
 stripe_api_wrapper = StripeWrapper.new()
 
 get '/' do
-  erb :index, :layout => :nav
+  erb :index, layout: :nav
 end
 
 get '/demo/:id' do
-  erb :demo, :layout => :nav
+  erb :demo, layout: :nav
 end
 
 get '/demo/:id/text' do
@@ -51,7 +51,12 @@ end
 get '/signup' do
   user = User.where(id: session[:id]).first
   user ? email = user[:email] : email = nil
-  erb :signup, :layout => :nav, locals: { email: email }
+  if ENV['RACK_ENV'] === 'production'
+    stripe_public_key =  ENV['PROD_STRIPE_PUBLIC_KEY']
+  else
+    stripe_public_key = ENV['TEST_STRIPE_PUBLIC_KEY']
+  end
+  erb :signup, layout: :nav, locals: {email: email, stripe_public_key: stripe_public_key }
 end
 
 get '/category/:category' do
@@ -65,20 +70,20 @@ get '/category/:category' do
       completed: user.lessons.any? {|user_lesson| lesson.id === user_lesson.id}
     }
   end
-  erb :category, :layout => :nav, locals: { lessons: lessons }
+  erb :category, layout: :nav, locals: { lessons: lessons }
 end
 
 get '/categories' do
   authenticate!
   categories = Lesson.map(&:category).uniq.reject {|c| c === "demo"}
   puts categories
-  erb :categories, :layout => :nav, locals: { categories: categories }
+  erb :categories, layout: :nav, locals: { categories: categories }
 end
 
 get '/lessons/:id' do
   authenticate!
   lesson = Lesson.where(id: params[:id]).first
-  erb :lesson, :layout => :nav, locals: { lesson: lesson }
+  erb :lesson, layout: :nav, locals: { lesson: lesson }
 end
 
 post '/lessons/:id/completed' do
