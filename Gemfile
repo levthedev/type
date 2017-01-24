@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.4.0'
 
+gem 'gmail'
 gem 'google-cloud-translate'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
