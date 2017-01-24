@@ -2,6 +2,7 @@ require 'letsencrypt-rails-heroku'
 require 'omniauth'
 require 'omniauth-google-oauth2'
 require 'sinatra'
+require 'sinatra/namespace'
 require 'sinatra/sequel'
 require './util/stripe_wrapper'
 
@@ -150,6 +151,10 @@ get '/auth/:provider/callback' do
   end
 end
 
+get '/supporters' do
+  erb :supporters
+end
+
 get '/logout' do
   uri = URI('https://accounts.google.com/o/oauth2/revoke')
   params = { token: session[:token] }
@@ -160,20 +165,31 @@ get '/logout' do
   redirect to('/')
 end
 
-get '/stats/amrpu' do
+namespace '/stats' do
   subscriptions = Stripe::Subscription.list()
-  live_subscriptions = subscriptions.to_a.select { |s| s.livemode === true }
-  mrr = live_subscriptions.reduce(0) {|sum, s| sum += s.plan.amount}
-  amrpu = '%.2f' % ((mrr / live_subscriptions.length).to_f / 100)
-  amrpu
-end
+  live = (ENV['RACK_ENV'] === 'production')
+  puts live
+  live_subscriptions = subscriptions.to_a.select { |s| s.livemode === live }
 
-get '/supporters' do
-  erb :supporters
+  get '/amrpu' do
+    mrr = live_subscriptions.reduce(0) {|sum, s| sum += s.plan.amount}
+    amrpu = mrr / live_subscriptions.length
+    format_cents(amrpu)
+  end
+
+  get '/minmax' do
+    max = live_subscriptions.max_by { |s| s.plan.amount}.plan.amount
+    min = live_subscriptions.max_by { |s| s.plan.amount}.plan.amount
+    { max: format_cents(max), min: format_cents(min) }.to_json
+  end
 end
 
 def authenticate!
   unless session[:id] && session[:token]
     redirect to('/')
   end
+end
+
+def format_cents(cents)
+  '%.2f' % (cents.to_f / 100)
 end

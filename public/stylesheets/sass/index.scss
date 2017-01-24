@@ -150,3 +150,11 @@ li {
 .retro {
   text-align: center;
 }
+
+#underline {
+  border: 0;
+  width: 75px;
+  color: $primary;
+  background-color: $primary;
+  height: 1px;
+}

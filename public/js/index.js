@@ -12,3 +12,9 @@ $('.faq-button').click(function() {
 $.get('/stats/amrpu', function(data) {
   document.querySelector('#average').textContent = '$' + data
 })
+
+$.get('/stats/minmax', function(data) {
+  data = JSON.parse(data)
+  document.querySelector('.min').textContent = '$' + data.min
+  document.querySelector('.max').textContent = '$' + data.max
+})
