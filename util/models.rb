@@ -5,3 +5,6 @@ end
 class User < Sequel::Model
   many_to_many :lessons
 end
+
+class LessonsUsers < Sequel::Model
+end

@@ -6,6 +6,7 @@ Sequel.migration do
       column :language, String, size: 255
       column :translation, :jsonb
       column :category, String, size: 255, null: false
+      column :vocab, "text[]"
     end
   end
 end

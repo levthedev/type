@@ -5,6 +5,7 @@ class Parser
   def initialize
     @db = Sequel.connect(ENV['DATABASE_URL'])
     @db.extension :pg_json
+    @db.extension :pg_array
     @translator = Google::Cloud::Translate.new
   end
 
@@ -19,28 +20,37 @@ class Parser
       translation[current_sentence] = sanitized_chunk
     end
     language = @translator.translate(text, to: 'en').language
+    vocab = text.split(' ').max_by(2) { |word| word.length}
     @db[:lessons].insert(
       text: text,
       translation: translation,
       language: language,
-      category: category
+      category: category,
+      vocab: Sequel.pg_array(vocab)
     )
   end
 
   def parse_files()
+    lengths = {
+      'conversation_i': 20,
+      'conversation_ii': 20,
+      'news': 8,
+      'literature': 8,
+      'demo': 4
+    }
     # ARGV.each do |file_path|
     #   text = File.read("lessons/fr/#{file_path}")
     #   category = file_path.split('/').last
     #   parse_text(text, category)
     # end
     [
-      # 'conversation_i',
+      'demo',
+      'conversation_i'
       # 'conversation_ii'
       # 'news',
       # 'literature'
-      'demo'
     ].map do |category|
-      (1..4).map do |n|
+      (1..lengths[category.to_sym]).map do |n|
         text = File.read("lessons/fr/#{category}/#{n}")
         parse_text(text, category)
       end
