@@ -10,6 +10,7 @@ use Letsencrypt::Middleware
 
 configure :development do
   require 'better_errors'
+  require 'pry'
   use BetterErrors::Middleware
   BetterErrors.application_root = __dir__
 end
@@ -157,6 +158,18 @@ get '/logout' do
   session.delete(:id)
   session.delete(:token)
   redirect to('/')
+end
+
+get '/stats/amrpu' do
+  subscriptions = Stripe::Subscription.list()
+  live_subscriptions = subscriptions.to_a.select { |s| s.livemode === true }
+  mrr = live_subscriptions.reduce(0) {|sum, s| sum += s.plan.amount}
+  amrpu = '%.2f' % ((mrr / live_subscriptions.length).to_f / 100)
+  amrpu
+end
+
+get '/supporters' do
+  erb :supporters
 end
 
 def authenticate!

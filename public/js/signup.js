@@ -86,13 +86,6 @@ function rangeSlider(id, onDrag) {
 
 rangeSlider('range-slider')
 
-document.querySelector('#average').textContent = '$2.39'
-var average = 2.39
-function incrementAverage() {
-  document.querySelector('#average').textContent = '$' + average
-  average = Math.floor(Math.random() * 10) + 1
-  average += (Math.floor(Math.random() * 100) + 1) / 100
-  average = average.toFixed(2)
-}
-
-setInterval(incrementAverage, 1500)
+$.get('/stats/amrpu', function(data) {
+  document.querySelector('#average').textContent = '$' + data
+})
