@@ -19,6 +19,7 @@ end
 configure do
 	DB = Sequel.connect(ENV['DATABASE_URL'])
   DB.extension :pg_json
+  DB.extension :pg_array
   require './util/models'
 end
 
@@ -93,6 +94,8 @@ post '/lessons/:id/completed' do
   lesson = Lesson.where(id: params[:id]).first
   user = User.where(id: session[:id]).first
   user.add_lesson(lesson)
+  lessons_users = LessonsUsers.where(user_id: user.id, lesson_id: lesson.id).first
+  lessons_users.update(completed_at: DateTime.now)
 end
 
 get '/lessons/:id/text' do
@@ -110,6 +113,7 @@ end
 post '/charge' do
   token = params['stripeToken']
   amount = params[:amount]
+  amount = '1.95' if amount.empty?
   amount = Float(amount.gsub('$', '').gsub(',', '')).round(2)
   amount = (amount * 100).to_i
   amount = 100 if amount < 100
@@ -168,7 +172,6 @@ end
 namespace '/stats' do
   subscriptions = Stripe::Subscription.list()
   live = (ENV['RACK_ENV'] === 'production')
-  puts live
   live_subscriptions = subscriptions.to_a.select { |s| s.livemode === live }
 
   get '/amrpu' do
