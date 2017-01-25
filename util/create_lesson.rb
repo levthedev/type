@@ -55,10 +55,10 @@ class Parser
     # end
     [
       'demo',
-      'conversation_i'
-      # 'conversation_ii'
-      # 'news',
-      # 'literature'
+      'conversation_i',
+      'conversation_ii',
+      'news',
+      'literature'
     ].map do |category|
       (1..lengths[category.to_sym]).map do |n|
         text = File.read("lessons/fr/#{category}/#{n}")
