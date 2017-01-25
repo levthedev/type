@@ -19,7 +19,6 @@ end
 configure do
 	DB = Sequel.connect(ENV['DATABASE_URL'])
   DB.extension :pg_json
-  DB.extension :pg_array
   require './util/models'
 end
 

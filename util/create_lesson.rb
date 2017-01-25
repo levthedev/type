@@ -5,7 +5,6 @@ class Parser
   def initialize
     @db = Sequel.connect(ENV['DATABASE_URL'])
     @db.extension :pg_json
-    @db.extension :pg_array
     @translator = Google::Cloud::Translate.new
   end
 

@@ -22,7 +22,7 @@ task :email do
     all_vocab.map do |vocab, translation|
       vocab_html += "<li>#{vocab}: #{translation}</li>\n\n"
     end
-    
+
     yesterday = today - 1.0
     gmail.deliver do
       to user.email
@@ -43,7 +43,6 @@ namespace :db do
   Sequel.extension :migration
   DB = Sequel.connect(ENV['DATABASE_URL'])
   DB.extension :pg_json
-  DB.extension :pg_array
   require "./util/models"
 
   desc "Prints current schema version"
