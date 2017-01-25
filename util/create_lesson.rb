@@ -42,17 +42,12 @@ class Parser
 
   def parse_files()
     lengths = {
-      'conversation_i': 20,
-      'conversation_ii': 20,
-      'news': 8,
-      'literature': 8,
+      'conversation_i': 25,
+      'conversation_ii': 25,
+      'news': 15,
+      'literature': 25,
       'demo': 4
     }
-    # ARGV.each do |file_path|
-    #   text = File.read("lessons/fr/#{file_path}")
-    #   category = file_path.split('/').last
-    #   parse_text(text, category)
-    # end
     [
       'demo',
       'conversation_i',

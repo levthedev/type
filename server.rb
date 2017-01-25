@@ -78,10 +78,9 @@ end
 get '/categories' do
   authenticate!
   categories = Lesson.map(&:category).uniq.reject {|c| c === "demo"}
-  difficulty = { 'conversation_i': 'Beginner', 'conversation_ii': 'Intermediate', 'literature': 'Advanced', 'news': 'Expert'}
+  difficulty = { 'conversation_i': 'Beginner', 'conversation_ii': 'Intermediate', 'literature': 'Expert', 'news': 'Advanced'}
   difficulties = {}
   categories.map { |category| difficulties[category] = difficulty[category.to_sym] }
-  # binding.pry
   erb :categories, layout: :nav, locals: { categories: difficulties }
 end
 
