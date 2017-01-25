@@ -6,7 +6,8 @@ spec = Gem::Specification.find_by_name 'letsencrypt-rails-heroku'
 load "#{spec.gem_dir}/lib/tasks/letsencrypt.rake"
 
 task :email do
-  gmail = Gmail.connect!(ENV['GMAIL_USERNAME'], ENV['GMAIL_PASSWORD'])
+  # gmail = Gmail.connect!(ENV['GMAIL_USERNAME'], ENV['GMAIL_PASSWORD'])
+  gmail = Gmail.connect!(:xoauth2, ENV['PARALELA_USERNAME'], ENV['PARALELA_ACCESS_TOKEN'])
   User.map do |user|
     completed_lessons = lessons_users = LessonsUsers.where(user_id: user.id).to_a
     today = DateTime.now
@@ -26,7 +27,7 @@ task :email do
     yesterday = today - 1.0
     gmail.deliver do
       to user.email
-      from 'kravinskylev@gmail.com'
+      from 'lev@parale.la'
       subject "French vocab from #{yesterday.month}/#{yesterday.day}"
       html_part do
         content_type 'text/html; charset=UTF-8'
