@@ -6,6 +6,7 @@ spec = Gem::Specification.find_by_name 'letsencrypt-rails-heroku'
 load "#{spec.gem_dir}/lib/tasks/letsencrypt.rake"
 
 task :email do
+  gmail = Gmail.connect!(ENV['GMAIL_USERNAME'], ENV['GMAIL_PASSWORD'])
   User.map do |user|
     completed_lessons = lessons_users = LessonsUsers.where(user_id: user.id).to_a
     today = DateTime.now
@@ -20,10 +21,19 @@ task :email do
     # TODO add translation for vocab word
     vocab_html = ''
     vocab.map { |word| vocab_html += "<li>#{word}</li>\n\n" }
-    puts vocab_html
-    # TODO actually send email
-    # send_email(to: user.email, from: 'lev@parale.la', html: "<h4>Daily Vocab</h4><br>Hey there! Lev here, with your vocab from the lessons you completed yesterday at https://parale.la. Be sure to reply to this email to let me know if yourre having any problems or are enjoying Paralela!<br><br><br><ul>#{vocab_html}</ul><br><br>Cheers,<br><br>Lev")
+
+    yesterday = today - 1.0
+    gmail.deliver do
+      to user.email
+      from 'kravinskylev@gmail.com'
+      subject "French vocab from #{yesterday.month}/#{yesterday.day}"
+      html_part do
+        content_type 'text/html; charset=UTF-8'
+        body "<h4>Daily Vocab</h4><br>Hey #{user.first_name}! Lev here, with your daily vocab from the lessons you completed yesterday at https://parale.la.<br><br><ul>#{vocab_html}</ul><br> Be sure to reply to this email to let me know if you have any thoughts about Paralela, would like to unsubscribe, or are just enjoying the website!<br>Cheers,<br><br>Lev"
+      end
+    end
   end
+  gmail.logout
 end
 
 namespace :db do
