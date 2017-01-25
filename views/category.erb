@@ -4,9 +4,13 @@
   <a href='/categories'>Back to all categories</a>
   <div id='lessons'>
     <% lessons.map do |lesson| %>
-      <a href='/lessons/<%=lesson[:id]%>' class='<%= 'completed' if lesson[:completed] %>'>
-        <div class='lesson'>
+      <a href='/lessons/<%=lesson[:id]%>'>
+        <div class='lesson <%= "completed" if lesson[:completed] %>'>
           <%= lesson[:text] %>
+          <!-- <% if lesson[:completed] %>
+            <script>console.log('completed')</script>
+            <div id='checkmark'>&#10003;HIHIHI</div>
+          <% end %> -->
         </div>
       </a>
     <% end %>
