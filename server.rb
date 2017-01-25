@@ -33,6 +33,11 @@ end
 
 stripe_api_wrapper = StripeWrapper.new()
 
+not_found do
+  status 404
+  erb :oops
+end
+
 get '/' do
   erb :index, layout: :nav
 end
