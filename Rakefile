@@ -6,8 +6,8 @@ spec = Gem::Specification.find_by_name 'letsencrypt-rails-heroku'
 load "#{spec.gem_dir}/lib/tasks/letsencrypt.rake"
 
 task :email do
-  # gmail = Gmail.connect!(ENV['GMAIL_USERNAME'], ENV['GMAIL_PASSWORD'])
-  gmail = Gmail.connect!(:xoauth2, ENV['PARALELA_USERNAME'], ENV['PARALELA_ACCESS_TOKEN'])
+  gmail = Gmail.connect!(ENV['PARALELA_USERNAME'], ENV['GMAIL_PASSWORD'])
+  # gmail = Gmail.connect!(:xoauth2, ENV['PARALELA_USERNAME'], ENV['PARALELA_ACCESS_TOKEN'])
   User.map do |user|
     completed_lessons = lessons_users = LessonsUsers.where(user_id: user.id).to_a
     today = DateTime.now
