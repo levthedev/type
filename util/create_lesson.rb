@@ -20,13 +20,24 @@ class Parser
       translation[current_sentence] = sanitized_chunk
     end
     language = @translator.translate(text, to: 'en').language
-    vocab = text.split(' ').max_by(2) { |word| word.length}
+
+    vocab = {}
+    vocab_words = text.split(' ').max_by(2) { |word| word.length}
+    vocab_words.each do |word|
+      word = word.split("'").last
+      word.capitalize!
+      word.gsub!(/[[:punct:]]/, '')
+      translated_word = @translator.translate(word, to: 'en').text.gsub("&#39;", "'")
+      translated_word.capitalize!
+      vocab[word] = translated_word
+    end
+
     @db[:lessons].insert(
       text: text,
       translation: translation,
       language: language,
       category: category,
-      vocab: Sequel.pg_array(vocab)
+      vocab: Sequel.pg_json(vocab)
     )
   end
 

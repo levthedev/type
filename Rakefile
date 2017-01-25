@@ -14,14 +14,15 @@ task :email do
       lesson.completed_at.to_datetime + 1.0 > today
     end
 
-    vocab = []
+    all_vocab = {}
     todays_lessons.map do |lesson_user|
-      vocab += Lesson.where(id: lesson_user.lesson_id).first.vocab
+      all_vocab.merge!(Lesson[lesson_user.lesson_id].vocab)
     end
-    # TODO add translation for vocab word
     vocab_html = ''
-    vocab.map { |word| vocab_html += "<li>#{word}</li>\n\n" }
-
+    all_vocab.map do |vocab, translation|
+      vocab_html += "<li>#{vocab}: #{translation}</li>\n\n"
+    end
+    
     yesterday = today - 1.0
     gmail.deliver do
       to user.email
