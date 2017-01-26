@@ -25,13 +25,15 @@ task :email do
     end
 
     yesterday = today - 1.0
-    gmail.deliver do
-      to user.email
-      from 'lev@parale.la'
-      subject "French vocab from #{yesterday.month}/#{yesterday.day}"
-      html_part do
-        content_type 'text/html; charset=UTF-8'
-        body "<h4>Daily Vocab</h4><br>Hey #{user.first_name}! Lev here, with your daily vocab from the lessons you completed yesterday at https://parale.la.<br><br><ul>#{vocab_html}</ul><br> Be sure to reply to this email to let me know if you have any thoughts about Paralela, would like to unsubscribe, or are just enjoying the website!<br>Cheers,<br><br>Lev"
+    if all_vocab.keys.length > 0
+      gmail.deliver do
+        to user.email
+        from 'lev@parale.la'
+        subject "French vocab from #{yesterday.month}/#{yesterday.day}"
+        html_part do
+          content_type 'text/html; charset=UTF-8'
+          body "<h4>Daily Vocab</h4><br>Hey #{user.first_name}! Lev here, with your daily vocab from the lessons you completed yesterday at https://parale.la.<br><br><ul>#{vocab_html}</ul><br> Be sure to reply to this email to let me know if you have any thoughts about Paralela, would like to unsubscribe, or are just enjoying the website!<br>Cheers,<br><br>Lev"
+        end
       end
     end
   end
