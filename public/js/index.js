@@ -4,7 +4,7 @@ $('#price-link').click(function() {
   }, 400)
 })
 
-$('.faq-answer').toggle()
+// $('.faq-answer').toggle()
 $('.faq-button').click(function() {
   $(this.nextSibling).next().toggle()
 })
