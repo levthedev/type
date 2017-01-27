@@ -44,7 +44,7 @@ class Parser
     lengths = {
       'conversation_i': 25,
       'conversation_ii': 25,
-      'news': 15,
+      'news': 25,
       'literature': 25,
       'demo': 4
     }
