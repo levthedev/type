@@ -188,7 +188,7 @@ namespace '/stats' do
 
   get '/minmax' do
     max = live_subscriptions.max_by { |s| s.plan.amount}.plan.amount
-    min = live_subscriptions.max_by { |s| s.plan.amount}.plan.amount
+    min = live_subscriptions.min_by { |s| s.plan.amount}.plan.amount
     { max: format_cents(max), min: format_cents(min) }.to_json
   end
 end
