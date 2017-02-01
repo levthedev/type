@@ -15,7 +15,7 @@ class Parser
     words.map.with_index do |word, index|
       current_sentence = words[0..index].join(' ')
       translated_chunk = @translator.translate(current_sentence, to: 'en')
-      sanitized_chunk = translated_chunk.text.gsub("&#39;", "'").strip
+      sanitized_chunk = translated_chunk.text.gsub("&#39;", "'").gsub("’", "'").strip
       translation[current_sentence] = sanitized_chunk
     end
     language = @translator.translate(text, to: 'en').language
@@ -64,5 +64,7 @@ class Parser
   end
 end
 
-p = Parser.new
-p.parse_files
+if __FILE__ == $0
+  p = Parser.new
+  p.parse_files
+end

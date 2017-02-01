@@ -5,6 +5,7 @@ require 'sinatra'
 require 'sinatra/namespace'
 require 'sinatra/sequel'
 require './util/stripe_wrapper'
+require './util/create_lesson'
 
 Letsencrypt.configure
 use Letsencrypt::Middleware
@@ -66,6 +67,22 @@ get '/signup' do
   erb :signup, layout: :nav, locals: {email: email, stripe_public_key: stripe_public_key }
 end
 
+get '/category/Custom' do
+  authenticate!
+  user = User[session[:id]]
+  lessons = user.custom_lessons.map { |cl| Lesson[cl.lesson_id] }
+  erb :custom, layout: :nav, locals: { lessons: lessons }
+end
+
+get '/upload' do
+  text = params[:text]
+  user = User[session[:id]]
+  p = Parser.new
+  new_lesson_id = p.parse_text(text, 'Custom')
+  CustomLesson.create(user_id: user.id, lesson_id: new_lesson_id)
+  redirect to('/category/Custom')
+end
+
 get '/category/:category' do
   authenticate!
   user = User.where(id: session[:id]).first
@@ -82,10 +99,14 @@ end
 
 get '/categories' do
   authenticate!
-  categories = Lesson.map(&:category).uniq.reject {|c| c === "demo"}
+  categories = Lesson.map(&:category).uniq.reject {|c| c === "demo" || c === "Custom"}
   difficulty = { 'conversation_i': 'Beginner', 'conversation_ii': 'Intermediate', 'literature': 'Expert', 'news': 'Advanced'}
   difficulties = {}
   categories.map { |category| difficulties[category] = difficulty[category.to_sym] }
+  user = User[session[:id]]
+  if user.premium
+    difficulties["Custom"] = "???"
+  end
   erb :categories, layout: :nav, locals: { categories: difficulties }
 end
 

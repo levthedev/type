@@ -1,3 +1,14 @@
+<div class="upload">
+  <br>
+  You can upload your custom lessons here.
+  <form action="/upload">
+    <input name="text" placeholder="Enter the text you want to type here" value=""></input>
+    <br>
+    <input type="submit"></input>
+  </form>
+</div>
+<br>
+
 <div id='dashboard-wrapper'>
   <h1 id='header'> <%= lessons.first[:category].split('_').map(&:capitalize).join(' ') %> </h1>
   <br>
