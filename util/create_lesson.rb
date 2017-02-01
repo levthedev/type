@@ -24,6 +24,7 @@ class Parser
     vocab_words = text.split(' ').max_by(2) { |word| word.length}
     vocab_words.each do |word|
       word = word.split("'").last
+      # TODO make this get longest by split of apostrophe and hypen
       word.capitalize!
       word.gsub!(/[[:punct:]]/, '')
       translated_word = @translator.translate(word, to: 'en').text.gsub("&#39;", "'")
