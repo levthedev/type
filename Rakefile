@@ -65,7 +65,7 @@ namespace :db do
 
   desc "Perform rollback to specified target or full rollback as default"
   task :rollback, :target do |t, args|
-    args.with_defaults(:target => 1)
+    args.with_defaults(:target => 3)
 
     Sequel::Migrator.run(DB, "db/migrations", :target => args[:target].to_i)
     Rake::Task['db:version'].execute

@@ -181,14 +181,14 @@ namespace '/stats' do
   live_subscriptions = subscriptions.to_a.select { |s| s.livemode === live }
 
   get '/amrpu' do
-    mrr = live_subscriptions.reduce(0) {|sum, s| sum += s.plan.amount}
+    mrr = live_subscriptions.reduce(0) { |sum, s| sum += s.plan.amount }
     amrpu = mrr / live_subscriptions.length
     format_cents(amrpu)
   end
 
   get '/minmax' do
-    max = live_subscriptions.max_by { |s| s.plan.amount}.plan.amount
-    min = live_subscriptions.min_by { |s| s.plan.amount}.plan.amount
+    max = live_subscriptions.max_by { |s| s.plan.amount }.plan.amount
+    min = live_subscriptions.min_by { |s| s.plan.amount }.plan.amount
     { max: format_cents(max), min: format_cents(min) }.to_json
   end
 end

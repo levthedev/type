@@ -43,6 +43,16 @@ class StripeWrapper
       customer: customer.id,
       plan: plan.id
     )
-    user = DB.from(:users).where(id: session[:id]).update(subscription: subscription.id, plan: plan.id, plan_amount: plan.amount, subscribed: true)
+    user = DB.from(:users).where(id: session[:id])
+    user.update(subscription: subscription.id, plan: plan.id, plan_amount: plan.amount, subscribed: true)
+
+    subscriptions = Stripe::Subscription.list()
+    live = (ENV['RACK_ENV'] === 'production')
+    live_subscriptions = subscriptions.to_a.select { |s| s.livemode === live }
+    mrr = live_subscriptions.reduce(0) { |sum, s| sum += s.plan.amount }
+    amrpu = mrr / live_subscriptions.length
+    if plan.amount > amrpu
+      user.update(premium: true)
+    end
   end
 end
