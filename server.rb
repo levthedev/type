@@ -215,7 +215,12 @@ namespace '/stats' do
 end
 
 def authenticate!
-  unless session[:id] && session[:token]
+  user = User[session[:id]]
+  if user && session[:token]
+    if !user.subscribed
+      redirect to('/')
+    end
+  else
     redirect to('/')
   end
 end
